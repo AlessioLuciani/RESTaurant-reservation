@@ -102,3 +102,21 @@ dist
 
 # TernJS port file
 .tern-port
+
+# macOS
+.DS_Store
+
+## Core latex/pdflatex auxiliary files:
+*.aux
+*.lof
+*.log
+*.lot
+*.fls
+*.out
+*.toc
+*.fmt
+*.fot
+*.cb
+*.cb2
+.*.lb
+
