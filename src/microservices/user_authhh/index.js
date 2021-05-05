@@ -3,10 +3,6 @@ const mongoose = require('mongoose');
 
 const app = express();
 
-//app.set('view engine', 'ejs');
-
-//app.use(express.urlencoded({ extended: false }));
-
 // Connect to MongoDB
 mongoose
   .connect(
@@ -16,22 +12,45 @@ mongoose
   .then(() => console.log('MongoDB Connected'))
   .catch(err => console.log(err));
 
-/*const Item = require('./models/Item');
+const Item = require('./models/Item');
 
-app.get('/', (req, res) => {
-  Item.find()
-    .then(items => res.render('index', { items }))
-    .catch(err => res.status(404).json({ msg: 'No items found' }));
-});*/
 
 app.get('/', function (req, res) {
   res.send('Waiting for you...');
 });
 
-app.post('/item/add', function (req, res) {
+
+
+
+
+
+
+
+app.get('/items', function (req, res) {
+  console.log("Aquì tienes tus resultados");
+  var str = "";
+  Item.find()
+    .then(function (items) {
+
+      for (var i = 0; i < items.length; i++) {
+        str += " " + items[i].name;
+
+      }
+
+      res.send(str);
+
+
+    }
+
+    );
+});
+
+
+app.get('/item/add', function (req, res) {
   /*const newItem = new Item({
     name: req.body.name
   });*/
+  console.log("Esto deberìa ser " + req.query.name);
 
   const newItem = new Item({
     name: req.query.name
