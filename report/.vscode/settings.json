@@ -1,0 +1,25 @@
+{
+    "grammarly.overrides": [
+        {
+            "files": [
+                "**/modules/introduction.tex"
+            ],
+            "config": {
+                "audience": "knowledgeable",
+                "dialect": "american",
+                "domain": "academic",
+                "emotions": [
+                    "neutral",
+                    "confident",
+                    "joyful",
+                    "optimistic",
+                    "respectful",
+                    "urgent",
+                    "friendly",
+                    "analytical"
+                ],
+                "goals": []
+            }
+        }
+    ]
+}
