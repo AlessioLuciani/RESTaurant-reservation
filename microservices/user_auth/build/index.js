@@ -130,6 +130,39 @@ app.post('/login', function (req, res) { return __awaiter(void 0, void 0, void 0
         }
     });
 }); });
+// Logout POST interface
+app.post('/logout', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var email, token, query, user;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                email = req.body.email;
+                token = req.body.token;
+                return [4 /*yield*/, models_1.User.find({ "email": email }).exec()];
+            case 1:
+                query = _a.sent();
+                // Checking if the user is registered
+                if (query.length == 0) {
+                    res.send({ "error": "There is no user registered with this email address." });
+                    return [2 /*return*/];
+                }
+                user = query[0];
+                // Deleting token
+                user.tokens.forEach(function (current, index) {
+                    if (token === current) {
+                        user.tokens.splice(index, 1);
+                    }
+                });
+                // Updating user data
+                return [4 /*yield*/, user.save()];
+            case 2:
+                // Updating user data
+                _a.sent();
+                res.send({});
+                return [2 /*return*/];
+        }
+    });
+}); });
 // Validation GET interface
 app.get('/validate', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var email, token, query, user;

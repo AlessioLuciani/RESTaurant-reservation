@@ -99,6 +99,36 @@ app.post('/login', async (req: express.Request, res: express.Response) => {
   res.send({ "token": token });
 });
 
+// Logout POST interface
+app.post('/logout', async (req: express.Request, res: express.Response) => {
+
+  let email = req.body.email;
+  let token = req.body.token;
+
+  // Querying user information
+  let query = await User.find({ "email": email }).exec();
+
+  // Checking if the user is registered
+  if (query.length == 0) {
+    res.send({ "error": "There is no user registered with this email address." });
+    return;
+  }
+
+  // Getting user data
+  let user = query[0];
+
+  // Deleting token
+  user.tokens.forEach((current: String, index: Number) => {
+    if (token === current) { user.tokens.splice(index, 1); }
+  });
+
+  // Updating user data
+  await user.save();
+
+  res.send({});
+});
+
+
 
 // Validation GET interface
 app.get('/validate', async (req: express.Request, res: express.Response) => {
@@ -125,9 +155,6 @@ app.get('/validate', async (req: express.Request, res: express.Response) => {
     res.send({ "error": "Invalid token." });
   }
 });
-
-
-
 
 
 
