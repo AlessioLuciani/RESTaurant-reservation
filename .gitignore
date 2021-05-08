@@ -125,3 +125,4 @@ dist
 
 # Build directory
 build/
+dist/

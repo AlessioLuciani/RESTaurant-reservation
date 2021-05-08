@@ -1,5 +1,12 @@
 version: '3'
 services:
+  webapp:
+    restart: always
+    build: ./webapp
+    ports:
+      - 8080:5000
+    volumes:
+      - ./webapp:/code
   user_auth_api:
     restart: always
     build: ./microservices/user_auth
