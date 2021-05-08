@@ -6,3 +6,4 @@ all:
 
 tsc:
 		tsc -b microservices/user_auth
+		tsc -b microservices/restaurant_auth
