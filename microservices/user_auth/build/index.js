@@ -50,8 +50,9 @@ mongoose_1.default
     .connect('mongodb://user_auth_mongo:27017', { useNewUrlParser: true })
     .then(function () { return console.log('MongoDB Connected'); })
     .catch(function (err) { return console.log(err); });
+// Status check
 app.get('/', function (req, res) {
-    res.send('Index');
+    res.send('Running!');
 });
 // Registration POST interface
 app.post('/register', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
@@ -78,8 +79,10 @@ app.post('/register', function (req, res) { return __awaiter(void 0, void 0, voi
                     password: password,
                     tokens: tokens
                 });
+                // Saving user data
                 return [4 /*yield*/, user.save()];
             case 2:
+                // Saving user data
                 _a.sent();
                 res.send({ "token": tokens[0] });
                 return [2 /*return*/];
@@ -127,6 +130,35 @@ app.post('/login', function (req, res) { return __awaiter(void 0, void 0, void 0
         }
     });
 }); });
+// Validation GET interface
+app.get('/validate', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var email, token, query, user;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                email = req.body.email;
+                token = req.body.token;
+                return [4 /*yield*/, models_1.User.find({ "email": email }).exec()];
+            case 1:
+                query = _a.sent();
+                // Checking if the user is registered
+                if (query.length == 0) {
+                    res.send({ "error": "There is no user registered with this email address." });
+                    return [2 /*return*/];
+                }
+                user = query[0];
+                // Checking token
+                if (token != null && user.tokens.includes(token)) {
+                    res.send({ "token": token });
+                }
+                else {
+                    res.send({ "error": "Invalid token." });
+                }
+                return [2 /*return*/];
+        }
+    });
+}); });
+// TODO: remove this (only for debug)
 app.get('/users', function (req, res) {
     models_1.User.find().exec().then(function (users) { res.send(users); });
 });

@@ -18,7 +18,7 @@ mongoose
   .catch((err: any) => console.log(err));
 
 
-
+// Status check
 app.get('/', function (req: any, res: any) {
   res.send('Running!');
 });
@@ -98,6 +98,39 @@ app.post('/login', async (req: express.Request, res: express.Response) => {
 
   res.send({ "token": token });
 });
+
+
+// Validation GET interface
+app.get('/validate', async (req: express.Request, res: express.Response) => {
+
+  let email = req.body.email;
+  let token = req.body.token;
+
+  // Querying user information
+  let query = await User.find({ "email": email }).exec();
+
+  // Checking if the user is registered
+  if (query.length == 0) {
+    res.send({ "error": "There is no user registered with this email address." });
+    return;
+  }
+
+  // Getting user data
+  let user = query[0];
+
+  // Checking token
+  if (token != null && user.tokens.includes(token)) {
+    res.send({ "token": token });
+  } else {
+    res.send({ "error": "Invalid token." });
+  }
+});
+
+
+
+
+
+
 
 // TODO: remove this (only for debug)
 app.get('/users', (req, res) => {
