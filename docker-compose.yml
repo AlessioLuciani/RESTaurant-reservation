@@ -1,16 +1,16 @@
 version: '3'
 services:
-  user_auth:
+  user_auth_api:
     restart: always
     build: ./microservices/user_auth
     ports:
-      - 8080:3000
+      - 12001:3000
     volumes:
       - ./microservices/user_auth:/code
-  mongo:
+  user_auth_mongo:
     image: mongo
-    ports:
-      - 27017:27017
+    #ports:
+     # - 12002:27017
     volumes:
       - user_auth_mongodb:/data/db
 volumes:
