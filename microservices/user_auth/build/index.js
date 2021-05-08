@@ -42,7 +42,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = __importDefault(require("express"));
 var mongoose_1 = __importDefault(require("mongoose"));
 var uuid_1 = require("uuid");
-var Item_1 = require("./models/Item");
 var models_1 = require("./models");
 var app = express_1.default();
 app.use(express_1.default.json());
@@ -52,8 +51,9 @@ mongoose_1.default
     .then(function () { return console.log('MongoDB Connected'); })
     .catch(function (err) { return console.log(err); });
 app.get('/', function (req, res) {
-    res.send('Waiting for you...');
+    res.send('Index');
 });
+// Registration POST interface
 app.post('/register', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var name, surname, email, password, query, tokens, user;
     return __generator(this, function (_a) {
@@ -67,7 +67,7 @@ app.post('/register', function (req, res) { return __awaiter(void 0, void 0, voi
             case 1:
                 query = _a.sent();
                 if (query.length > 0) {
-                    res.send({ "error": "A user with this email already exists." });
+                    res.send({ "error": "A user with this email address already exists." });
                     return [2 /*return*/];
                 }
                 tokens = [uuid_1.v4()];
@@ -86,26 +86,48 @@ app.post('/register', function (req, res) { return __awaiter(void 0, void 0, voi
         }
     });
 }); });
-app.get('/items', function (req, res) {
-    console.log("Aquì tienes tus resultados");
-    var str = "";
-    Item_1.Item.find()
-        .then(function (items) {
-        for (var i = 0; i < items.length; i++) {
-            str += " " + items[i].name;
+// Login POST interface
+app.post('/login', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var email, password, token, query, user;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                email = req.body.email;
+                password = req.body.password;
+                token = req.body.token;
+                return [4 /*yield*/, models_1.User.find({ "email": email }).exec()];
+            case 1:
+                query = _a.sent();
+                // Checking if the user is registered
+                if (query.length == 0) {
+                    res.send({ "error": "There is no user registered with this email address." });
+                    return [2 /*return*/];
+                }
+                user = query[0];
+                // Checking token
+                if (token != null && user.tokens.includes(token)) {
+                    res.send({ "token": token });
+                    return [2 /*return*/];
+                }
+                // Checking password
+                if (password != user.password) {
+                    res.send({ "error": "The email address or the password are incorrect." });
+                    return [2 /*return*/];
+                }
+                // Generating new session token
+                token = uuid_1.v4();
+                user.tokens.push(token);
+                // Updating user data
+                return [4 /*yield*/, user.save()];
+            case 2:
+                // Updating user data
+                _a.sent();
+                res.send({ "token": token });
+                return [2 /*return*/];
         }
-        res.send(str);
     });
+}); });
+app.get('/users', function (req, res) {
+    models_1.User.find().exec().then(function (users) { res.send(users); });
 });
-app.get('/item/add', function (req, res) {
-    /*const newItem = new Item({
-      name: req.body.name
-    });*/
-    console.log("Esto deberìa ser " + req.query.name);
-    var newItem = new Item_1.Item({
-        name: req.query.name
-    });
-    newItem.save().then(function () { return res.redirect('/'); });
-});
-var port = 3000;
-app.listen(port, function () { return console.log('Server running...'); });
+app.listen(3000, function () { return console.log('Server running...'); });
