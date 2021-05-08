@@ -120,3 +120,6 @@ dist
 *.cb2
 .*.lb
 
+
+# Build directory
+build/

@@ -1,5 +1,8 @@
-const express = require('express');
-const mongoose = require('mongoose');
+import express from "express";
+import mongoose from 'mongoose';
+import { Item } from './models/Item';
+
+
 
 const app = express();
 
@@ -10,27 +13,32 @@ mongoose
     { useNewUrlParser: true }
   )
   .then(() => console.log('MongoDB Connected'))
-  .catch(err => console.log(err));
-
-const Item = require('./models/Item');
+  .catch((err: any) => console.log(err));
 
 
-app.get('/', function (req, res) {
+
+app.get('/', function (req: any, res: any) {
   res.send('Waiting for you...');
+});
+
+const ItemSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true
+  },
+  date: {
+    type: Date,
+    default: Date.now
+  }
 });
 
 
 
-
-
-
-
-
-app.get('/items', function (req, res) {
+app.get('/items', function (req: any, res: any) {
   console.log("Aquì tienes tus resultados");
   var str = "";
   Item.find()
-    .then(function (items) {
+    .then(function (items: string | any[]) {
 
       for (var i = 0; i < items.length; i++) {
         str += " " + items[i].name;
@@ -46,7 +54,7 @@ app.get('/items', function (req, res) {
 });
 
 
-app.get('/item/add', function (req, res) {
+app.get('/item/add', function (req: any, res: any) {
   /*const newItem = new Item({
     name: req.body.name
   });*/
@@ -56,7 +64,7 @@ app.get('/item/add', function (req, res) {
     name: req.query.name
   });
 
-  newItem.save().then(item => res.redirect('/'));
+  newItem.save().then(() => res.redirect('/'));
 });
 
 const port = 3000;
