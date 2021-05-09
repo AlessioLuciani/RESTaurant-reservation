@@ -4,7 +4,6 @@ import { v4 as uuid } from 'uuid';
 import { Restaurant } from './models';
 
 
-
 const app = express();
 app.use(express.json());
 
