@@ -48,7 +48,7 @@ app.post('/register', async (req: express.Request, res: express.Response) => {
     surname: surname,
     email: email,
     password: password,
-    tokens
+    tokens: tokens
   });
 
   // Saving user data

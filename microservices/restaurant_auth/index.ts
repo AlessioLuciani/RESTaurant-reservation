@@ -46,7 +46,7 @@ app.post('/register', async (req: express.Request, res: express.Response) => {
     name: name,
     email: email,
     password: password,
-    tokens
+    tokens: tokens
   });
 
   // Saving restaurant data
