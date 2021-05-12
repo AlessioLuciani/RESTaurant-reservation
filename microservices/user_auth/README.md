@@ -21,7 +21,7 @@ POST logout\
 JSON body data: email: string, token: nullable string\
 JSON response: empty OR error: string
 
-POST validate\
+GET validate\
 JSON body data: email: string, token: string\
 JSON response: token: string OR error: string
 
