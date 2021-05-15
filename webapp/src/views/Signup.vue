@@ -52,7 +52,10 @@
         placeholder="query123@"
         required
       /><br />
-      <label v-if=showError style="color: red; font-size: 12px" for="user-confirm-password"
+      <label
+        v-if="showError"
+        style="color: red; font-size: 12px"
+        for="user-confirm-password"
         >Password do not match!</label
       >
       <br />
@@ -95,6 +98,7 @@ export default class Signup extends Vue {
 
     const xmlHttp = new XMLHttpRequest();
     xmlHttp.open('POST', 'http://localhost:12001/register', true);
+    xmlHttp.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
     xmlHttp.onreadystatechange = () => {
       if (xmlHttp.readyState === 4) {
         console.log(xmlHttp.responseText);

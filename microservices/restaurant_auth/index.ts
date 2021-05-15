@@ -6,6 +6,11 @@ import { Restaurant } from './models';
 
 const app = express();
 app.use(express.json());
+app.use(function (req: any, res: any, next: any) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
 // Connect to MongoDB
 mongoose
