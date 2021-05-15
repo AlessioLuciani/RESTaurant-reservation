@@ -42,6 +42,12 @@ services:
     image: mongo
     volumes:
       - restaurant_data_mongodb:/data/db
+  grafana:
+    image: grafana/grafana:7.3.0
+    ports:
+      - 9092:3000
+    depends_on:
+      - prometheus
   prometheus:
     image: prom/prometheus:latest
     container_name: prometheus
@@ -64,13 +70,19 @@ services:
     - /sys:/sys:ro
     - /var/lib/docker/:/var/lib/docker:ro
     depends_on:
-    - webapp
-    - user_auth_api
-    - user_auth_mongo
-    - restaurant_auth_api
-    - restaurant_auth_mongo
-    - restaurant_data_api
-    - restaurant_data_mongo
+    - redis
+    #- webapp
+    #- user_auth_api
+    #- user_auth_mongo
+    #- restaurant_auth_api
+    #- restaurant_auth_mongo
+    #- restaurant_data_api
+    #- restaurant_data_mongo
+  redis:
+    image: redis:latest
+    container_name: redis
+    ports:
+    - 6379:6379
 volumes:
   user_auth_mongodb:
   restaurant_auth_mongodb:
