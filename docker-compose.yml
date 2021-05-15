@@ -4,7 +4,7 @@ services:
     restart: always
     build: ./webapp
     ports:
-      - 8080:5000
+      - 8081:5000
     volumes:
       - ./webapp:/code
   user_auth_api:
