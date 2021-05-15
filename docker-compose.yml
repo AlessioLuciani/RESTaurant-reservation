@@ -74,3 +74,4 @@ services:
 volumes:
   user_auth_mongodb:
   restaurant_auth_mongodb:
+  restaurant_data_mongodb:
