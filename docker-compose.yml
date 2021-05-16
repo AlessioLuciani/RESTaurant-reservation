@@ -59,6 +59,10 @@ services:
     - ./benchmarks/prometheus.yml:/etc/prometheus/prometheus.yml:ro
     depends_on:
     - cadvisor
+  node-exporter:
+    image: prom/node-exporter
+    ports:
+    - 9100:9100
   cadvisor:
     image: gcr.io/cadvisor/cadvisor:latest
     container_name: cadvisor
