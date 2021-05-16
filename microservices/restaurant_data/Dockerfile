@@ -1,7 +1,6 @@
 FROM python:latest
-COPY ./requirements.txt /app/requirements.txt
 WORKDIR /app
+COPY ./requirements.txt ./
 RUN pip3 install -r requirements.txt 
-COPY . /app
-ENTRYPOINT [ “python” ]
-CMD [ “app.py” ] 
+COPY . .
+CMD ["python3", "app.py" ] 
