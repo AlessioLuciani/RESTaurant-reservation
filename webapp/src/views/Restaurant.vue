@@ -88,12 +88,14 @@
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
 import router from '../router';
+import Utils from '../utils';
 
 @Options({
   components: {},
 })
 
 /* eslint class-methods-use-this: ["error", { "exceptMethods": ["mounted", "currentHour"] }] */
+/* eslint operator-linebreak: [2, "after"] */
 export default class Restaurant extends Vue {
   bookingData = {
     guests: 1,
@@ -140,7 +142,23 @@ export default class Restaurant extends Vue {
 
   onSubmit() {
     console.log(this.bookingData);
-    console.log('Booking request sent!');
+    if (
+      localStorage.authEmail === undefined ||
+      localStorage.authToken === undefined
+    ) {
+      console.log('You are not authenticated!');
+    }
+    Utils.loginUser(
+      localStorage.authEmail,
+      localStorage.authToken,
+      (response) => {
+        if (response.error === undefined) {
+          console.log('Booking request sent!');
+        } else {
+          console.log('You are not authenticated!');
+        }
+      },
+    );
   }
 
   get currentRestaurant() {
@@ -152,9 +170,10 @@ export default class Restaurant extends Vue {
   }
 
   get restaurantPic() {
-    return this.restaurantProvided
-      ? this.currentRestaurant.picture
-      : '../assets/557px-Barbieri_-_ViaSophia25668.jpg';
+    if (this.restaurantProvided) {
+      return this.currentRestaurant.picture;
+    }
+    return '../assets/557px-Barbieri_-_ViaSophia25668.jpg';
   }
 }
 </script>

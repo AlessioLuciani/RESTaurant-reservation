@@ -3,7 +3,8 @@
     <router-link to="/">Home</router-link> |
     <router-link to="/login">Login</router-link> |
     <router-link to="/signup">Signup</router-link> |
-    <router-link to="/explore">Explore</router-link> |
+    <router-link to="/explore" v-show="true">Explore</router-link>
+    |
     <a href="#" v-on:click="logout">Logout</a>
   </div>
   <router-view />
