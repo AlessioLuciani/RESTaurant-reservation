@@ -5,7 +5,8 @@ import json
 
 client = pymongo.MongoClient("mongodb://restaurant_data", 27017)
 db = client.restaurants
-db.data.create_index([("$**", pymongo.TEXT)])
+if "restaurants" in client.list_database_names():
+    db.data.create_index([("$**", pymongo.TEXT)])
 
 app = Flask(__name__)
 api = Api(app)
