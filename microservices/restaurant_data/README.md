@@ -53,8 +53,7 @@ Response:
 
 ```json
 {
-    "_id": "60a29e279063e7ef3379cbf5"
-    },
+    "_id": "60a29e279063e7ef3379cbf5",
     "nome": "pizzeria margherita",
     "indirizzo": "via Napoli 2",
     "rating": "4",
