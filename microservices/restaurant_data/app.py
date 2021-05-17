@@ -5,8 +5,9 @@ import json
 
 client = pymongo.MongoClient("mongodb://restaurant_data", 27017)
 db = client.restaurants
-if "restaurants" in client.list_database_names():
-    db.data.create_index([("$**", pymongo.TEXT)])
+#if "restaurants" in client.list_database_names():
+#    
+#    db.data.create_index([("$**", pymongo.TEXT)])
 
 app = Flask(__name__)
 api = Api(app)
@@ -76,4 +77,4 @@ api.add_resource(Restaurant, "/search")
 api.add_resource(testSearch, "/test")
 
 if __name__ == "__main__":
-    app.run(debug=False, port=3000) 
+    app.run(debug=False, port=3000, host='0.0.0.0') 
