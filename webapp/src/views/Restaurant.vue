@@ -82,7 +82,6 @@ export default class Restaurant extends Vue {
 
   onSubmit() {
     console.log(this.bookingData);
-    
   }
 
   get currentRestaurant() {
