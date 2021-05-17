@@ -27,6 +27,7 @@ Request:
 `
 http://restaurant_data:3000/pingdb
 `
+
 Response: 
 ```
 {
