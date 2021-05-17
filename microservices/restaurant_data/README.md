@@ -43,9 +43,13 @@ Response:
 ## Example test 
 
 Request:
+```
 curl -X POST -H "Content-Type: application/json" \
     -d '{"query": "pizza"}' \
     http://localhost:12003/test
+```
+
+Response: 
 
 ```json
 {
