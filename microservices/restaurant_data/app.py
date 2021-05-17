@@ -10,16 +10,20 @@ api = Api(app)
 
 task_post_args = reqparse.RequestParser()
 task_post_args.add_argument(
-    "nome", type=str, help="Restaurant name is required", required=True
+    "query", type=str, help="Restaurant search query is required", required=True
 )
 
 class Restaurant(Resource):
     def post(self):
         args = task_post_args.parse_args()
-        name = args["nome"]
-        data = db.data.find_one({"nome": name})
-        data.pop("_id", None)
-        return jsonify(data)
+        query = args["query"]
+        result = db.data.find({"$text": {"$search": query}})
+        result_list = list(result)
+        for el in result_list:
+            el["_id"] = str(el["_id"])
+            el.pop("menu_list")
+        return result_list
+
 
 
 class connectionCheck(Resource):
