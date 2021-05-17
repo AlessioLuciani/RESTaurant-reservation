@@ -10,8 +10,8 @@ http://restaurant_data:3000/[query]
 ## Available query types:
 
 POST search\
-JSON body data: name: string\
-JSON response: restaurant data: name, address, menu, rating
+JSON body data: query: string\
+JSON response: list of json containing restaurant data: name, address, menu, rating
 
 GET ping\
 JSON response: string OR error: string
@@ -27,11 +27,17 @@ Request:
 `
 http://restaurant_data:3000/pingdb
 `
+Response: 
+```
+{
+"Ok": 1.0
+}
+```
 
-Data:
+## Example data
 
 ```json
-{"nome":"test_data", 
+{"nome":" name", 
 "indirizzo": "via Roma 1",
 "rating": 4,
 "menu": {
