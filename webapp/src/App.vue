@@ -2,7 +2,9 @@
   <div id="nav">
     <router-link to="/">Home</router-link> |
     <router-link to="/login">Login</router-link> |
-    <router-link to="/signup">Signup</router-link>
+    <router-link to="/signup">Signup</router-link> |
+    <router-link to="/explore">Explore</router-link> |
+    <a href="#" v-on:click="logout">Logout</a>
   </div>
   <router-view />
 
@@ -21,15 +23,33 @@
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
+import router from './router';
 import Utils from './utils';
 
 @Options({
   components: {},
 })
-/* eslint class-methods-use-this: ["error", { "exceptMethods": ["mounted"] }] */
+/* eslint class-methods-use-this: ["error", { "exceptMethods": ["mounted", "logout"] }] */
 export default class App extends Vue {
   mounted() {
+    if (!Utils.isLogged) {
+      Utils.loginUser(
+        localStorage.authEmail,
+        localStorage.authToken,
+        (response) => {
+          Utils.isLogged = response.error === undefined;
+        },
+      );
+    } else {
+      console.log('[Cached] user is currently logged');
+    }
     // Utils.signInSilently();
+  }
+
+  logout() {
+    console.log('Removing invalid credentials from local storage');
+    Utils.resetUserCredentials();
+    this.$router.go(0);
   }
 }
 </script>

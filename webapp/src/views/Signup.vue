@@ -2,7 +2,7 @@
   <div class="main">
     <h1>Sign up to RESTaurant Reservation</h1>
     <p>Have an account? <router-link to="/login"> Login here! </router-link></p>
-    <form style="margin-top: 50px" v-on:submit="onSubmit">
+    <form style="margin-top: 50px" v-on:submit.prevent="onSubmit">
       <label for="user-name">Name:</label> <br />
       <input
         v-model="name"
@@ -128,6 +128,7 @@ export default class Signup extends Vue {
         } else {
           localStorage.authToken = response.token;
           localStorage.authEmail = user.email;
+          localStorage.authType = 0;
           console.log('token is');
           console.log(localStorage.authToken);
           router.replace('/explore');

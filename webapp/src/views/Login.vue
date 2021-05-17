@@ -5,8 +5,23 @@
       Don't have an account?
       <router-link to="/signup"> Sign up here! </router-link>
     </p>
-    <form style="margin-top: 50px" v-on:submit="onSubmit">
-      <label for="user-email">Email:</label> <br />
+    <p v-if="loginType === 0" style="margin-top: 5px">
+      Click
+      <router-link to="/login" v-on:click="updateLoginType"> here </router-link>
+      if you are a restaurant owner.
+    </p>
+    <p
+      v-if="loginType === 1"
+      v-on:click="updateLoginType"
+      style="margin-top: 5px"
+    >
+      Click <router-link to="/login"> here </router-link> if you are a guest.
+    </p>
+    <form style="margin-top: 50px" v-on:submit.prevent="onSubmit">
+      <label for="user-email"
+        >{{ loginType === 0 ? 'User email' : 'Restaurant email' }}:</label
+      >
+      <br />
       <input
         v-model="email"
         type="email"
@@ -48,6 +63,8 @@ import Utils from '../utils';
 })
 /* eslint class-methods-use-this: ["error", { "exceptMethods": ["mounted", "signInSilently"] }] */
 export default class Login extends Vue {
+  loginType = 0;
+
   email = '';
 
   password = '';
@@ -58,14 +75,23 @@ export default class Login extends Vue {
     Utils.signInSilently();
   }
 
+  updateLoginType() {
+    this.loginType = (this.loginType + 1) % 2;
+  }
+
   onSubmit(): void {
     const user = {
       email: this.email,
       password: this.password,
     };
 
+    let url = 'http://localhost:12001/login';
+    if (this.loginType === 1) {
+      url = 'http://localhost:12002/login';
+    }
+
     const xmlHttp = new XMLHttpRequest();
-    xmlHttp.open('POST', 'http://localhost:12001/login', true);
+    xmlHttp.open('POST', url, true);
     xmlHttp.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
     xmlHttp.onreadystatechange = () => {
       if (xmlHttp.readyState === 4) {
@@ -76,6 +102,7 @@ export default class Login extends Vue {
         } else {
           localStorage.authToken = response.token;
           localStorage.authEmail = user.email;
+          localStorage.authType = this.loginType;
           console.log('Current authToken', localStorage.authToken);
           router.replace('/explore');
         }
