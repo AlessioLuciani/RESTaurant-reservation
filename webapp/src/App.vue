@@ -26,10 +26,10 @@ import Utils from './utils';
 @Options({
   components: {},
 })
-/* eslint class-methods-use-this: ["error", { "exceptMethods": ["mounted", "signInSilently"] }] */
+/* eslint class-methods-use-this: ["error", { "exceptMethods": ["mounted"] }] */
 export default class App extends Vue {
   mounted() {
-    Utils.signInSilently();
+    // Utils.signInSilently();
   }
 }
 </script>
