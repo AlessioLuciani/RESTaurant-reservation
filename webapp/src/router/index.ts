@@ -31,6 +31,13 @@ const routes: Array<RouteRecordRaw> = [
     // Lazy loading for this route
     component: () => import('../views/Explore.vue'),
   },
+  {
+    path: '/restaurant',
+    name: 'Restaurant',
+    // Lazy loading for this route
+    component: () => import('../views/Restaurant.vue'),
+    props: true,
+  },
 ];
 
 const router = createRouter({
