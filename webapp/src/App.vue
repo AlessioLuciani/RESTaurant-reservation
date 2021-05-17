@@ -19,6 +19,21 @@
   </div>
 </template>
 
+<script lang="ts">
+import { Options, Vue } from 'vue-class-component';
+import Utils from './utils';
+
+@Options({
+  components: {},
+})
+/* eslint class-methods-use-this: ["error", { "exceptMethods": ["mounted", "signInSilently"] }] */
+export default class App extends Vue {
+  mounted() {
+    Utils.signInSilently();
+  }
+}
+</script>
+
 <style>
 * {
   margin: 0;

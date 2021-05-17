@@ -32,6 +32,13 @@
         required
       />
       <br />
+      <label
+        v-if="responseError.length > 0"
+        style="color: red; font-size: 12px"
+        for="user-confirm-password"
+        >{{ responseError }}</label
+      >
+      <br />
       <br />
       <label for="user-password">Password:</label> <br />
       <input
@@ -67,11 +74,16 @@
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
+import router from '../router';
+import Utils from '../utils';
 
 @Options({
   components: {},
 })
+/* eslint class-methods-use-this: ["error", { "exceptMethods": ["mounted", "signInSilently"] }] */
 export default class Signup extends Vue {
+  responseError = '';
+
   showError = false;
 
   name = '';
@@ -84,6 +96,10 @@ export default class Signup extends Vue {
 
   passwordConfirm = '';
 
+  mounted() {
+    Utils.signInSilently();
+  }
+
   validatePassword(): void {
     this.showError = this.password !== this.passwordConfirm;
   }
@@ -95,15 +111,27 @@ export default class Signup extends Vue {
       email: this.email,
       password: this.password,
     };
+    if (user.password !== this.passwordConfirm) {
+      return;
+    }
 
     const xmlHttp = new XMLHttpRequest();
     xmlHttp.open('POST', 'http://localhost:12001/register', true);
     xmlHttp.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
     xmlHttp.onreadystatechange = () => {
       if (xmlHttp.readyState === 4) {
-        console.log(xmlHttp.responseText);
-      } else {
-        console.log(xmlHttp.responseText);
+        const response = JSON.parse(xmlHttp.responseText);
+        console.log(response);
+        this.responseError = '';
+        if (response.error !== undefined) {
+          this.responseError = response.error;
+        } else {
+          localStorage.authToken = response.token;
+          localStorage.authEmail = user.email;
+          console.log('token is');
+          console.log(localStorage.authToken);
+          router.replace('/explore');
+        }
       }
     };
     xmlHttp.send(JSON.stringify(user));

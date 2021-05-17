@@ -25,6 +25,12 @@ const routes: Array<RouteRecordRaw> = [
     // Lazy loading for this route
     component: () => import('../views/Signup.vue'),
   },
+  {
+    path: '/explore',
+    name: 'Explore',
+    // Lazy loading for this route
+    component: () => import('../views/Explore.vue'),
+  },
 ];
 
 const router = createRouter({
