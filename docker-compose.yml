@@ -47,6 +47,22 @@ services:
       - 12103:27017
     volumes:
       - restaurant_data_mongodb:/data/db
+  booking:
+    restart: always
+    build: ./microservices/booking
+    ports:
+      - 12004:3000
+    volumes:
+      - ./microservices/booking:/code
+    depends_on:
+      - booking_mongo
+  booking_mongo:
+    image: mongo
+    hostname: booking_db
+    ports:
+      - 12104:27017
+    volumes:
+      - booking_mongodb:/data/db
   grafana:
     image: grafana/grafana:7.3.0
     ports:
@@ -83,6 +99,7 @@ services:
     #- restaurant_auth_mongo
     #- restaurant_data_api
     #- restaurant_data_mongo
+    #- booking_mongodb:
   redis:
     image: redis:latest
     container_name: redis
@@ -92,3 +109,4 @@ volumes:
   user_auth_mongodb:
   restaurant_auth_mongodb:
   restaurant_data_mongodb:
+  booking_mongodb:
