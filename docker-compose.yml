@@ -14,6 +14,8 @@ services:
       - 12001:3000
     volumes:
       - ./microservices/user_auth:/code
+    depends_on:
+      - user_auth_mongo
   user_auth_mongo:
     image: mongo
     #ports:
@@ -27,6 +29,8 @@ services:
       - 12002:3000
     volumes:
       - ./microservices/user_auth:/code
+    depends_on:
+      - restaurant_auth_mongo
   restaurant_auth_mongo:
     image: mongo
     volumes:
