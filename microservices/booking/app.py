@@ -35,7 +35,7 @@ class reservation(Resource):
         reservation_id = db.data.insert_one(args).inserted_id
         result = {
             "body": "Reservation pending",
-            "reservation_id": reservation_id,
+            "reservation_id": str(reservation_id),
         }
         return result 
     def update(self):
@@ -74,9 +74,9 @@ class testReservation(Resource):
         reservation_id = testdb.testcol.insert_one(args).inserted_id
         result = {
             "body": "Reservation pending",
-            "reservation_id": reservation_id,
+            "reservation_id": str(reservation_id),
         }
-        return result 
+        return result
     def update(self):
         pass
 
