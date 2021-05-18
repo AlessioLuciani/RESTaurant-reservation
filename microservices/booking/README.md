@@ -39,7 +39,7 @@ if the token is valid
 ```json
 {
  "body": "Reservation pending",
- "reservation_id": reservation_id,
+ "reservation_id": 'reservation_id',
 }
 ```
 
