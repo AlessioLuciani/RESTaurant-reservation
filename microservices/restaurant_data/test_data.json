@@ -7,26 +7,44 @@
             {
                 "category": "antipasti",
                 "meals": [
-                    {"item": "prosciutto", "price": "5.5\u20ac"},
-                    {"item": "suppl\u00ec", "price": "1.5\u20ac"},
-                ],
+                    {
+                        "item": "prosciutto",
+                        "price": "5.5\u20ac"
+                    },
+                    {
+                        "item": "suppl\u00ec",
+                        "price": "1.5\u20ac"
+                    }
+                ]
             },
             {
                 "category": "Primi",
                 "meals": [
-                    {"item": "pasta al sugo", "price": "7\u20ac"},
-                    {"item": "risotto", "price": "9\u20ac"},
-                ],
+                    {
+                        "item": "pasta al sugo",
+                        "price": "7\u20ac"
+                    },
+                    {
+                        "item": "risotto",
+                        "price": "9\u20ac"
+                    }
+                ]
             },
             {
                 "category": "Secondi",
                 "meals": [
-                    {"item": "carne", "price": "12\u20ac"},
-                    {"item": "pesce", "price": "15\u20ac"},
-                ],
-            },
+                    {
+                        "item": "carne",
+                        "price": "12\u20ac"
+                    },
+                    {
+                        "item": "pesce",
+                        "price": "15\u20ac"
+                    }
+                ]
+            }
         ],
-        "menu_list": "'menu': {'antipasti': {'prosciutto': '5.5\u20ac', 'suppl\u00ec': '1.5\u20ac'}, 'primi': {'pasta al sugo': '7\u20ac', 'risotto': '9\u20ac'}, '       Secondi': {'carne': '12\u20ac', 'pesce': '15\u20ac'}}",
+        "menu_list": "'menu': {'antipasti': {'prosciutto': '5.5\u20ac', 'suppl\u00ec': '1.5\u20ac'}, 'primi': {'pasta al sugo': '7\u20ac', 'risotto': '9\u20ac'}, '       Secondi': {'carne': '12\u20ac', 'pesce': '15\u20ac'}}"
     },
     "2": {
         "nome": "pizzeria margherita",
@@ -36,26 +54,44 @@
             {
                 "category": "antipasti",
                 "meals": [
-                    {"item": "prosciutto", "price": "5.5\u20ac"},
-                    {"item": "suppl\u00ec", "price": "1.5\u20ac"},
-                ],
+                    {
+                        "item": "prosciutto",
+                        "price": "5.5\u20ac"
+                    },
+                    {
+                        "item": "suppl\u00ec",
+                        "price": "1.5\u20ac"
+                    }
+                ]
             },
             {
                 "category": "Primi",
                 "meals": [
-                    {"item": "pasta al sugo", "price": "7\u20ac"},
-                    {"item": "pizza", "price": "9\u20ac"},
-                ],
+                    {
+                        "item": "pasta al sugo",
+                        "price": "7\u20ac"
+                    },
+                    {
+                        "item": "pizza",
+                        "price": "9\u20ac"
+                    }
+                ]
             },
             {
                 "category": "Secondi",
                 "meals": [
-                    {"item": "carne", "price": "12\u20ac"},
-                    {"item": "pesce", "price": "15\u20ac"},
-                ],
-            },
+                    {
+                        "item": "carne",
+                        "price": "12\u20ac"
+                    },
+                    {
+                        "item": "pesce",
+                        "price": "15\u20ac"
+                    }
+                ]
+            }
         ],
-        "menu_list": "'menu': {'antipasti': {'prosciutto': '5.5\u20ac', 'suppl\u00ec': '1.5\u20ac'}, 'primi': {'pasta al sugo': '7\u20ac', 'pizza': '9\u20ac'}, '       Secondi': {'carne': '12\u20ac', 'pesce': '15\u20ac'}}",
+        "menu_list": "'menu': {'antipasti': {'prosciutto': '5.5\u20ac', 'suppl\u00ec': '1.5\u20ac'}, 'primi': {'pasta al sugo': '7\u20ac', 'pizza': '9\u20ac'}, '       Secondi': {'carne': '12\u20ac', 'pesce': '15\u20ac'}}"
     },
     "3": {
         "nome": "ristorante etnico",
@@ -65,26 +101,44 @@
             {
                 "category": "antipasti",
                 "meals": [
-                    {"item": "wakame", "price": "5.5\u20ac"},
-                    {"item": "suppl\u00ec", "price": "1.5\u20ac"},
-                ],
+                    {
+                        "item": "wakame",
+                        "price": "5.5\u20ac"
+                    },
+                    {
+                        "item": "suppl\u00ec",
+                        "price": "1.5\u20ac"
+                    }
+                ]
             },
             {
                 "category": "Primi",
                 "meals": [
-                    {"item": "pasta al sugo", "price": "7\u20ac"},
-                    {"item": "sushi", "price": "9\u20ac"},
-                ],
+                    {
+                        "item": "pasta al sugo",
+                        "price": "7\u20ac"
+                    },
+                    {
+                        "item": "sushi",
+                        "price": "9\u20ac"
+                    }
+                ]
             },
             {
                 "category": "Secondi",
                 "meals": [
-                    {"item": "carne", "price": "12\u20ac"},
-                    {"item": "pesce", "price": "15\u20ac"},
-                ],
-            },
+                    {
+                        "item": "carne",
+                        "price": "12\u20ac"
+                    },
+                    {
+                        "item": "pesce",
+                        "price": "15\u20ac"
+                    }
+                ]
+            }
         ],
-        "menu_list": "'menu': {'antipasti': {'wakame: '5.5\u20ac', 'suppl\u00ec': '1.5\u20ac'}, 'primi': {'pasta al sugo': '7\u20ac', 'sushi': '9\u20ac'}, '       Secondi': {'carne': '12\u20ac', 'pesce': '15\u20ac'}}",
+        "menu_list": "'menu': {'antipasti': {'wakame: '5.5\u20ac', 'suppl\u00ec': '1.5\u20ac'}, 'primi': {'pasta al sugo': '7\u20ac', 'sushi': '9\u20ac'}, '       Secondi': {'carne': '12\u20ac', 'pesce': '15\u20ac'}}"
     },
     "4": {
         "nome": "ristorante cattivo",
@@ -94,26 +148,43 @@
             {
                 "category": "antipasti",
                 "meals": [
-                    {"item": "prosciutto", "price": "5.5\u20ac"},
-                    {"item": "suppl\u00ec", "price": "1.5\u20ac"},
-                ],
+                    {
+                        "item": "prosciutto",
+                        "price": "5.5\u20ac"
+                    },
+                    {
+                        "item": "suppl\u00ec",
+                        "price": "1.5\u20ac"
+                    }
+                ]
             },
             {
                 "category": "Primi",
                 "meals": [
-                    {"item": "pasta al sugo", "price": "7\u20ac"},
-                    {"item": "pasta scotta", "price": "9\u20ac"},
-                ],
+                    {
+                        "item": "pasta al sugo",
+                        "price": "7\u20ac"
+                    },
+                    {
+                        "item": "pasta scotta",
+                        "price": "9\u20ac"
+                    }
+                ]
             },
             {
                 "category": "Secondi",
                 "meals": [
-                    {"item": "carne", "price": "12\u20ac"},
-                    {"item": "pesce", "price": "15\u20ac"},
-                ],
-            },
+                    {
+                        "item": "carne",
+                        "price": "12\u20ac"
+                    },
+                    {
+                        "item": "pesce",
+                        "price": "15\u20ac"
+                    }
+                ]
+            }
         ],
-        "menu_list": "'menu': {'antipasti': {'salame': '5.5\u20ac', 'suppl\u00ec': '1.5\u20ac'}, 'primi': {'pasta al sugo': '7\u20ac', 'pasta scotta': '9\u20ac'}, 'Secondi': {'carne': '12\u20ac', 'pesce': '15\u20ac'}}",
-    },
+        "menu_list": "'menu': {'antipasti': {'salame': '5.5\u20ac', 'suppl\u00ec': '1.5\u20ac'}, 'primi': {'pasta al sugo': '7\u20ac', 'pasta scotta': '9\u20ac'}, 'Secondi': {'carne': '12\u20ac', 'pesce': '15\u20ac'}}"
+    }
 }
-
