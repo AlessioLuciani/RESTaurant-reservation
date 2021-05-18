@@ -3,11 +3,10 @@ from flask_restful import Resource, Api, reqparse, abort
 import pymongo
 import json
 
-client = pymongo.MongoClient("mongodb://restaurant_data", 27017)
+client = pymongo.MongoClient("mongodb://restaurant_data_db", 27017)
 db = client.restaurants
-#if "restaurants" in client.list_database_names():
-#    
-#    db.data.create_index([("$**", pymongo.TEXT)])
+if "restaurants" in client.list_database_names():
+    db.data.create_index([("$**", pymongo.TEXT)])
 
 app = Flask(__name__)
 api = Api(app)
@@ -66,9 +65,7 @@ class connectionCheck(Resource):
 
 class dbCheck(Resource):
     def get(self):
-        data = db.data.find_one({"nome": "test_data"})
-        data.pop("_id", None)
-        return jsonify(data)
+        return f"Avalibale databases are {list(client.list_database_names())}"
 
 
 api.add_resource(connectionCheck, "/ping")

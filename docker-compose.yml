@@ -38,8 +38,13 @@ services:
       - 12003:3000
     volumes:
       - ./microservices/restaurant_data:/code
+    depends_on:
+      - restaurant_data_mongo
   restaurant_data_mongo:
     image: mongo
+    hostname: restaurant_data_db
+    ports:
+      - 12103:27017
     volumes:
       - restaurant_data_mongodb:/data/db
   grafana:
