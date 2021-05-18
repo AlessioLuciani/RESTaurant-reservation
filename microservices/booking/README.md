@@ -4,80 +4,50 @@ Contact this microservice from within the docker swarm by
 calling
 
 `
-http://restaurant_data:3000/[query]
+http://booking:3000/[query]
 `
 
 ## Available query types:
 
-POST search\
-JSON body data: query: string\
-JSON response: list of json containing restaurant data: name, address, menu, rating
-
+POST reserve\
+JSON body data: json
+JSON response: json containing {reservation status, reservation_id} OR erorr: string
 
 POST test\
-JSON body data: query: string\
-JSON response: list of json containing restaurant test data: name, address, menu, rating
+JSON body data: json
+JSON response:  json containing {reservation status, reservation_id}
 
 GET ping\
 JSON response: string OR error: string
 
 GET pingdb\
-JSON response: json OR error: name, address, menu, rating
-
-
-## Example ping
-
-Request:
-
-`
-http://restaurant_data:3000/pingdb
-`
-
-Response: 
-```
-{
-"Ok": 1.0
-}
-```
+JSON response: list OR error: list of available databases
 
 ## Example test 
 
 Request:
 ```
 curl -X POST -H "Content-Type: application/json" \
-    -d '{"query": "risotto"}' \
-    http://localhost:12003/test
+    -d '{"restaurantName": "ristorante buono","date": "22/03","service": "lunch","time": "13","seats": "3","notes": "","email": "a@a.t","status": "pending","authToken": "token"}' \
+    http://localhost:12004/test
 ```
 
 Response: 
 
+if the token is valid
+
 ```json
 {
-        "nome": "ristorante buono",
-        "indirizzo": "via Roma 1",
-        "rating": "4",
-        "menu": [
-            {
-                "category": "antipasti",
-                "meals": [
-                    {"item": "prosciutto", "price": "5.5\u20ac"},
-                    {"item": "suppl\u00ec", "price": "1.5\u20ac"},
-                ],
-            },
-            {
-                "category": "Primi",
-                "meals": [
-                    {"item": "pasta al sugo", "price": "7\u20ac"},
-                    {"item": "risotto", "price": "9\u20ac"},
-                ],
-            },
-            {
-                "category": "Secondi",
-                "meals": [
-                    {"item": "carne", "price": "12\u20ac"},
-                    {"item": "pesce", "price": "15\u20ac"},
-                ],
-            },
-        ],
-    },
+ "body": "Reservation pending",
+ "reservation_id": reservation_id,
+}
 ```
+
+else
+
+`
+User not authorized
+`
+
+
+
