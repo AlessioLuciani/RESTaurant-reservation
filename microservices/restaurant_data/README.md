@@ -45,7 +45,7 @@ Response:
 Request:
 ```
 curl -X POST -H "Content-Type: application/json" \
-    -d '{"query": "pizza"}' \
+    -d '{"query": "risotto"}' \
     http://localhost:12003/test
 ```
 
@@ -53,23 +53,31 @@ Response:
 
 ```json
 {
-    "_id": "60a29e279063e7ef3379cbf5",
-    "nome": "pizzeria margherita",
-    "indirizzo": "via Napoli 2",
-    "rating": "4",
-    "menu": {
-        "antipasti": {
-            "prosciutto": "5.5€",
-            "supplì": "1.5€"
-        },
-        "primi": {
-            "pasta al sugo": "7€",
-            "pizza": "9€"
-        },
-        "       Secondi": {
-            "carne": "12€",
-            "pesce": "15€"
-        }
-    }
-}
+        "nome": "ristorante buono",
+        "indirizzo": "via Roma 1",
+        "rating": "4",
+        "menu": [
+            {
+                "category": "antipasti",
+                "meals": [
+                    {"item": "prosciutto", "price": "5.5\u20ac"},
+                    {"item": "suppl\u00ec", "price": "1.5\u20ac"},
+                ],
+            },
+            {
+                "category": "Primi",
+                "meals": [
+                    {"item": "pasta al sugo", "price": "7\u20ac"},
+                    {"item": "risotto", "price": "9\u20ac"},
+                ],
+            },
+            {
+                "category": "Secondi",
+                "meals": [
+                    {"item": "carne", "price": "12\u20ac"},
+                    {"item": "pesce", "price": "15\u20ac"},
+                ],
+            },
+        ],
+    },
 ```
