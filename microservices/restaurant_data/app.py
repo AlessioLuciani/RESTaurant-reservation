@@ -1,5 +1,6 @@
 from flask import Flask, jsonify
 from flask_restful import Resource, Api, reqparse, abort
+from flask_cors import CORS
 import pymongo
 import json
 
@@ -9,6 +10,7 @@ if "restaurants" in client.list_database_names():
     db.data.create_index([("$**", pymongo.TEXT)])
 
 app = Flask(__name__)
+cors = CORS(app)
 api = Api(app)
 
 task_post_args = reqparse.RequestParser()
