@@ -1,7 +1,7 @@
 <template>
   <div class="main">
     <h1>Welcome to the explore page!</h1>
-    <input class="form-control" type="text" v-model="query" />
+    <input class="form-control" type="text" v-on:input="updateItems" v-model="query" />
     <ul class="dropdown" style="width: 100%">
       <li
         class="dropdown-content"
@@ -14,7 +14,7 @@
           style="height: 16px; float: left; margin-top: 4px;"
           class="filter-green"
         />
-        <p style="padding-left: 30px;"> {{ item.message }} </p>
+        <p style="padding-left: 30px;"> {{ item.nome }} </p>
       </li>
     </ul>
   </div>
@@ -23,19 +23,11 @@
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
 import router from '../router';
-
-@Options({
-  components: {},
-})
+import Utils from '../utils';
 
 /* eslint class-methods-use-this: ["error", { "exceptMethods": ["onItemClicked"] }] */
 export default class Explore extends Vue {
-  items = [
-    { message: 'Foo', id: '1' },
-    { message: 'Bar', id: '2' },
-    { message: 'AA', id: '42' },
-    { message: 'AB', id: '2' },
-  ];
+  items = [];
 
   query = '';
 
@@ -45,19 +37,25 @@ export default class Explore extends Vue {
     if (this.query.length <= 0) {
       return [];
     }
-    return this.items.filter(
-      (item) => item.message.toLowerCase().indexOf(this.query.toLowerCase()) >= 0,
-    );
+    return this.items;
+  }
+
+  updateItems() {
+    Utils.search(this.query, (response) => {
+      this.items = response;
+    });
   }
 
   onItemClicked(index: number) {
     this.selectedIndex = index;
     console.log('Selected index is', index);
     const selectedRestaurant = this.matches[index];
-    console.log(selectedRestaurant);
     router.replace({
       name: 'Restaurant',
-      params: selectedRestaurant,
+      params: {
+        id: '1',
+        nome: JSON.stringify(selectedRestaurant),
+      },
     });
   }
 }

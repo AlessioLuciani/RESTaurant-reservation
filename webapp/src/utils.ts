@@ -49,4 +49,21 @@ export default class Utils extends Vue {
     };
     xmlHttp.send(JSON.stringify(user));
   }
+
+  static search(queryString: string, callback: (o: any) => any) {
+    if (queryString === undefined) {
+      return;
+    }
+    const queryObj = { query: queryString };
+    const xmlHttp = new XMLHttpRequest();
+    xmlHttp.open('POST', 'http://localhost:12003/test', true);
+    xmlHttp.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+    xmlHttp.onreadystatechange = () => {
+      if (xmlHttp.readyState === 4) {
+        const response = JSON.parse(xmlHttp.responseText);
+        callback(response);
+      }
+    };
+    xmlHttp.send(JSON.stringify(queryObj));
+  }
 }

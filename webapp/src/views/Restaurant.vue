@@ -1,6 +1,6 @@
 <template>
   <div class="maina">
-    <h1>Restaurant {{ currentRestaurant.message }}</h1>
+    <h1>{{ currentRestaurant.nome }}</h1>
     <span
       class="fa fa-star"
       style="font-size: 20px"
@@ -8,13 +8,13 @@
       :key="index"
       :class="{
         checked:
-          index <= (currentRestaurant.stars ? currentRestaurant.stars : 3),
+          index <= (currentRestaurant.rating ? currentRestaurant.rating : 3),
       }"
     />
     <h4>
       {{
-        currentRestaurant.address
-          ? currentRestaurant.address
+        currentRestaurant.indirizzo
+          ? currentRestaurant.indirizzo
           : 'Via Pietro Cavallini 25, 00193 Rome Italy'
       }}
     </h4>
@@ -74,7 +74,7 @@
     <div>
       <h1>Menu</h1>
       <br />
-      <div v-bind:key="index" v-for="(item, index) in exampleMenu">
+      <div v-bind:key="index" v-for="(item, index) in currentMenu">
         <h2>{{ item['category'] }}</h2>
         <div class="column" v-bind:key="idx" v-for="(meal, idx) in item.meals">
           {{ meal.item }} - {{ meal.price }}
@@ -90,9 +90,24 @@ import { Options, Vue } from 'vue-class-component';
 import router from '../router';
 import Utils from '../utils';
 
-@Options({
-  components: {},
-})
+interface Meal {
+    item: string,
+    price: string,
+}
+
+interface Menu {
+    category: string,
+    meals: Array<Meal>,
+}
+
+interface RestaurantObj {
+    id: string,
+    nome: string,
+    indirizzo: string,
+    rating: string,
+    picture: string,
+    menu: Array<Menu>,
+}
 
 /* eslint class-methods-use-this: ["error", { "exceptMethods": ["mounted", "currentHour"] }] */
 /* eslint operator-linebreak: [2, "after"] */
@@ -102,6 +117,8 @@ export default class Restaurant extends Vue {
     date: new Date().toISOString().slice(0, 10),
     time: this.currentHour,
   };
+
+  underscoreCurrentRestaurant = {};
 
   exampleMenu = [
     {
@@ -133,6 +150,8 @@ export default class Restaurant extends Vue {
       // an idea is to append restaurant id to the url and fetch the data
       alert('No restaurant provided!');
       router.replace('/');
+    } else {
+      this.underscoreCurrentRestaurant = JSON.parse(this.$route.params.nome as string);
     }
   }
 
@@ -141,6 +160,7 @@ export default class Restaurant extends Vue {
   }
 
   onSubmit() {
+    console.log('Submitting the following order:');
     console.log(this.bookingData);
     if (
       localStorage.authEmail === undefined ||
@@ -162,16 +182,23 @@ export default class Restaurant extends Vue {
   }
 
   get currentRestaurant() {
-    return this.$route.params;
+    return this.underscoreCurrentRestaurant;
   }
 
   get restaurantProvided() {
-    return Object.keys(this.currentRestaurant).length > 0;
+    return Object.keys(this.$route.params).length > 0;
+  }
+
+  get currentMenu() {
+    if (!this.restaurantProvided) {
+      return this.exampleMenu;
+    }
+    return (this.currentRestaurant as RestaurantObj).menu;
   }
 
   get restaurantPic() {
     if (this.restaurantProvided) {
-      return this.currentRestaurant.picture;
+      return (this.currentRestaurant as RestaurantObj).picture;
     }
     return '../assets/557px-Barbieri_-_ViaSophia25668.jpg';
   }
