@@ -44,7 +44,7 @@
                 ]
             }
         ],
-        "menu_list": "'menu': {'antipasti': {'prosciutto': '5.5\u20ac', 'suppl\u00ec': '1.5\u20ac'}, 'primi': {'pasta al sugo': '7\u20ac', 'risotto': '9\u20ac'}, '       Secondi': {'carne': '12\u20ac', 'pesce': '15\u20ac'}}"
+        "search_string": "{'nome': 'ristorante buono', 'indirizzo': 'via roma 1', 'rating': '4', 'menu': [{'category': 'antipasti', 'meals': [{'item': 'prosciutto', 'price': '5.5€'}, {'item': 'supplì', 'price': '1.5€'}]}, {'category': 'primi', 'meals': [{'item': 'pasta al sugo', 'price': '7€'}, {'item': 'risotto', 'price': '9€'}]}, {'category': 'secondi', 'meals': [{'item': 'carne', 'price': '12€'}, {'item': 'pesce', 'price': '15€'}]}]}"
     },
     "2": {
         "nome": "pizzeria margherita",
@@ -91,7 +91,7 @@
                 ]
             }
         ],
-        "menu_list": "'menu': {'antipasti': {'prosciutto': '5.5\u20ac', 'suppl\u00ec': '1.5\u20ac'}, 'primi': {'pasta al sugo': '7\u20ac', 'pizza': '9\u20ac'}, '       Secondi': {'carne': '12\u20ac', 'pesce': '15\u20ac'}}"
+        "search_string": "{'nome': 'pizzeria margherita', 'indirizzo': 'via napoli 2', 'rating': '5', 'menu': [{'category': 'antipasti', 'meals': [{'item': 'prosciutto', 'price': '5.5€'}, {'item': 'supplì', 'price': '1.5€'}]}, {'category': 'primi', 'meals': [{'item': 'pasta al sugo', 'price': '7€'}, {'item': 'pizza', 'price': '9€'}]}, {'category': 'secondi', 'meals': [{'item': 'carne', 'price': '12€'}, {'item': 'pesce', 'price': '15€'}]}]}"
     },
     "3": {
         "nome": "ristorante etnico",
@@ -138,7 +138,7 @@
                 ]
             }
         ],
-        "menu_list": "'menu': {'antipasti': {'wakame: '5.5\u20ac', 'suppl\u00ec': '1.5\u20ac'}, 'primi': {'pasta al sugo': '7\u20ac', 'sushi': '9\u20ac'}, '       Secondi': {'carne': '12\u20ac', 'pesce': '15\u20ac'}}"
+        "search_string": "{'nome': 'ristorante etnico', 'indirizzo': 'via milano 34', 'rating': '4', 'menu': [{'category': 'antipasti', 'meals': [{'item': 'wakame', 'price': '5.5€'}, {'item': 'supplì', 'price': '1.5€'}]}, {'category': 'primi', 'meals': [{'item': 'pasta al sugo', 'price': '7€'}, {'item': 'sushi', 'price': '9€'}]}, {'category': 'secondi', 'meals': [{'item': 'carne', 'price': '12€'}, {'item': 'pesce', 'price': '15€'}]}]}"
     },
     "4": {
         "nome": "ristorante cattivo",
@@ -185,6 +185,6 @@
                 ]
             }
         ],
-        "menu_list": "'menu': {'antipasti': {'salame': '5.5\u20ac', 'suppl\u00ec': '1.5\u20ac'}, 'primi': {'pasta al sugo': '7\u20ac', 'pasta scotta': '9\u20ac'}, 'Secondi': {'carne': '12\u20ac', 'pesce': '15\u20ac'}}"
+        "search_string": "{'nome': 'ristorante cattivo', 'indirizzo': 'via roma 1123', 'rating': '1', 'menu': [{'category': 'antipasti', 'meals': [{'item': 'prosciutto', 'price': '5.5€'}, {'item': 'supplì', 'price': '1.5€'}]}, {'category': 'primi', 'meals': [{'item': 'pasta al sugo', 'price': '7€'}, {'item': 'pasta scotta', 'price': '9€'}]}, {'category': 'secondi', 'meals': [{'item': 'carne', 'price': '12€'}, {'item': 'pesce', 'price': '15€'}]}]}"
     }
 }
