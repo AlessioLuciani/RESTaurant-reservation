@@ -30,7 +30,9 @@ class Restaurant(Resource):
         if len(args['query']) == 0:
             return "search query can't be empty"
 
-        query = args["query"].lower()
+        # clean input query
+        query = re.sub(r'[^a-z0-9]', '', args["query"].lower())
+
         result = db.data.find({"search_string": {"$regex": query}})
         result_list = list(result)
         for el in result_list:
@@ -77,7 +79,9 @@ class testSearch(Resource):
             return "Input must be {'query': '<your keyword>'}"
         if len(args['query']) == 0:
             return "search query can't be empty"
-        query = args["query"].lower()
+            
+        # clean input query
+        query = re.sub(r'[^a-z0-9]', '', args["query"].lower())
 
         # query db
         result = testdb.testcol.find({"search_string": {"$regex": query}})
