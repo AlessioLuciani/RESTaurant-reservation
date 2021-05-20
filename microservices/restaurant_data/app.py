@@ -39,10 +39,9 @@ class Restaurant(Resource):
         return result_list
 
     def get(self):
-
         args = task_post_args.parse_args()
         if len(args["id"]) == 0:
-            return "search id is required"
+            return "Search id is required"
         id_ = args["id"]
         
         result = db.data.find({"_id": ObjectId(id_)})
