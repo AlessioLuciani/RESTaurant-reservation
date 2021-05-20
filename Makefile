@@ -5,7 +5,7 @@ all:
 		cd microservices/restaurant_auth && npm i
 		cd microservices/user_auth && npm i
 		make tsc
-		docker compose up --build
+		docker-compose up --build
 
 tsc:
 		tsc -b microservices/user_auth

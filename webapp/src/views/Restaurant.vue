@@ -168,17 +168,30 @@ export default class Restaurant extends Vue {
     ) {
       console.log('You are not authenticated!');
     }
-    Utils.loginUser(
-      localStorage.authEmail,
-      localStorage.authToken,
-      (response) => {
-        if (response.error === undefined) {
-          console.log('Booking request sent!');
-        } else {
-          console.log('You are not authenticated!');
-        }
-      },
-    );
+    const reservation = {
+      restaurantName: (this.currentRestaurant as RestaurantObj).nome,
+      date: this.bookingData.date,
+      service: '',
+      time: this.bookingData.time,
+      seats: this.bookingData.guests,
+      notes: '',
+      email: localStorage.authEmail,
+      status: 'pending',
+      authToken: localStorage.authToken,
+    };
+    const xmlHttp = new XMLHttpRequest();
+    xmlHttp.open('POST', 'http://localhost:12004/reserve', true);
+    xmlHttp.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+    xmlHttp.onreadystatechange = () => {
+      if (xmlHttp.readyState === 4) {
+        const response = JSON.parse(xmlHttp.responseText);
+        console.log(response);
+      }
+    };
+    xmlHttp.send(JSON.stringify(reservation));
+
+    alert('Request of reservation correctly sent to the restaurant!');
+    router.replace('/');
   }
 
   get currentRestaurant() {
