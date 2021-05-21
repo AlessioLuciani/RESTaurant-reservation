@@ -49,6 +49,12 @@
           />
           <br />
           <br />
+          <input type="radio" id="lunch" value="lunch" v-model="bookingData.service">
+          <label>Lunch</label>&nbsp;&nbsp;
+          <input type="radio" id="dinner" value="dinner" v-model="bookingData.service">
+          <label>Dinner</label>
+          <br />
+          <br />
           <label for="time">Time:</label> <br />
           <input
             type="time"
@@ -58,6 +64,11 @@
             style="width: 220px"
             required
           />
+          <br />
+          <br />
+          <label>Additional notes:</label> <br />
+          <textarea v-model="bookingData.notes" placeholder=" ... "
+          style="width: 220px;padding:20px"></textarea>
           <br />
           <br />
           <br />
@@ -102,7 +113,7 @@ interface Menu {
 
 interface RestaurantObj {
     id: string,
-    mail: string,
+    email: string,
     nome: string,
     indirizzo: string,
     rating: string,
@@ -117,6 +128,8 @@ export default class Restaurant extends Vue {
     guests: 1,
     date: new Date().toISOString().slice(0, 10),
     time: this.currentHour,
+    service: 'lunch',
+    notes: '',
   };
 
   underscoreCurrentRestaurant = {};
@@ -170,12 +183,12 @@ export default class Restaurant extends Vue {
       console.log('You are not authenticated!');
     }
     const reservation = {
-      rest_email: (this.currentRestaurant as RestaurantObj).mail,
+      rest_email: (this.currentRestaurant as RestaurantObj).email,
       date: this.bookingData.date,
-      service: '',
+      service: this.bookingData.service,
       time: this.bookingData.time,
       seats: this.bookingData.guests,
-      notes: '',
+      notes: this.bookingData.notes,
       email: localStorage.authEmail,
       status: 'pending',
       authToken: localStorage.authToken,

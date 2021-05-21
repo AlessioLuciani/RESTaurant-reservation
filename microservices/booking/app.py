@@ -6,6 +6,7 @@ import requests
 from flask_cors import CORS
 
 client = pymongo.MongoClient("mongodb://booking_db", 27017)
+client.drop_database('restaurants') 
 db = client.restaurants
 
 app = Flask(__name__)
@@ -20,10 +21,11 @@ for el in post_arguments:
     el, type=str, help=f"Field {el} is required", required=True
 )
 
+
 update_arguments = ["res_id","status","authToken","email"]
 task_update_args = reqparse.RequestParser()
 for el in update_arguments:
-    task_post_args.add_argument(
+    task_update_args.add_argument(
     el, type=str, help=f"Field {el} is required", required=True
 )
 
