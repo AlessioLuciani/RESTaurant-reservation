@@ -2,6 +2,7 @@
     "1": {
         "nome": "ristorante buono",
         "indirizzo": "via Roma 1",
+        "email": "rbuono@mail.it",
         "rating": "4",
         "menu": [
             {
@@ -49,6 +50,7 @@
     "2": {
         "nome": "pizzeria margherita",
         "indirizzo": "via napoli 2",
+        "email": "pizzeria@mail.it",
         "rating": "5",
         "menu": [
             {
@@ -96,6 +98,7 @@
     "3": {
         "nome": "ristorante etnico",
         "indirizzo": "via Milano 34",
+        "email": "retnico@mail.it",
         "rating": "4",
         "menu": [
             {
@@ -143,6 +146,7 @@
     "4": {
         "nome": "ristorante cattivo",
         "indirizzo": "via Roma 1123",
+        "email": "rcattivo@mail.it",
         "rating": "1",
         "menu": [
             {

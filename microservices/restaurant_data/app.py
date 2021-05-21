@@ -55,7 +55,6 @@ class Restaurant(Resource):
 
 class testSearch(Resource):
     def post(self):
-
         # create test db and populate it 
         dblist = client.list_database_names()       
         if not "testdb" in dblist:
