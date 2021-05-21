@@ -13,7 +13,7 @@ cors = CORS(app)
 api = Api(app)
 
 
-post_arguments = ["restaurantName", "date", "service", "time", "seats", "notes", "email", "status", "authToken"]
+post_arguments = ["rest_email", "date", "service", "time", "seats", "notes", "email", "status", "authToken"]
 task_post_args = reqparse.RequestParser()
 for el in post_arguments:
     task_post_args.add_argument(
@@ -42,7 +42,7 @@ class reservation(Resource):
             return "User not authorized"
 
         # TODO controllo posti disponibili !!
-
+        print(args)
         args.pop('authToken')
         reservation_id = db.data.insert_one(args).inserted_id
         result = {

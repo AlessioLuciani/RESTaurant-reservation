@@ -102,6 +102,7 @@ interface Menu {
 
 interface RestaurantObj {
     id: string,
+    mail: string,
     nome: string,
     indirizzo: string,
     rating: string,
@@ -169,7 +170,7 @@ export default class Restaurant extends Vue {
       console.log('You are not authenticated!');
     }
     const reservation = {
-      restaurantName: (this.currentRestaurant as RestaurantObj).nome,
+      rest_email: (this.currentRestaurant as RestaurantObj).mail,
       date: this.bookingData.date,
       service: '',
       time: this.bookingData.time,
