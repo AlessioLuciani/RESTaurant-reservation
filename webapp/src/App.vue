@@ -120,7 +120,7 @@ export default class App extends Vue {
 }
 
 .main {
-  max-width: 700px;
+  max-width: 1000px;
   height: 800px;
   position: absolute;
   left: 0;

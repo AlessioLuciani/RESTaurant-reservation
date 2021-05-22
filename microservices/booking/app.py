@@ -6,7 +6,7 @@ import requests
 from flask_cors import CORS
 
 client = pymongo.MongoClient("mongodb://booking_db", 27017)
-client.drop_database('restaurants') 
+#client.drop_database('restaurants') 
 db = client.restaurants
 
 app = Flask(__name__)
@@ -29,6 +29,13 @@ for el in update_arguments:
     el, type=str, help=f"Field {el} is required", required=True
 )
 
+get_arguments = ["authToken","email","user_type"]
+task_get_args = reqparse.RequestParser()
+for el in get_arguments:
+    task_get_args.add_argument(
+    el, type=str, help=f"Field {el} is required", required=True
+)
+
 
 
 class reservation(Resource):
@@ -44,7 +51,7 @@ class reservation(Resource):
             return "User not authorized"
 
         # TODO controllo posti disponibili !!
-        print(args)
+        
         args.pop('authToken')
         reservation_id = db.data.insert_one(args).inserted_id
         result = {
@@ -53,6 +60,7 @@ class reservation(Resource):
         }
 
         return result 
+
 
     #change status of reservation
     def update(self):
@@ -69,6 +77,32 @@ class reservation(Resource):
 
         result = {"res":"Status updated"}
         return result 
+    
+
+    def get(self):
+        args = task_get_args.parse_args()
+        user_session = {"token": args["authToken"], "email": args["email"]}
+        print(user_session, flush=True)
+        if args["user_type"] == '0':
+            is_valid = requests.get("http://user_auth_api:3000/validate",user_session).json()
+            if "error" in is_valid.keys():
+                return "User not authorized"
+            myquery = { "email": args["email"]}
+        
+        else:
+            is_valid = requests.get("http://restaurant_auth_api:3000/validate",user_session).json()
+            if "error" in is_valid.keys():
+                return "Restaurant not authorized"
+            myquery = { "rest_email": args["email"]}
+        
+        print(str(list(db.data.find(myquery))), flush=True)
+
+        res = list(db.data.find(myquery))
+        for row in res:
+            row["_id"]=str(row["_id"])
+
+        return res
+
 
 
 

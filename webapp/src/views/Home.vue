@@ -5,50 +5,61 @@
       Please <router-link to="/login">login</router-link> to see the dashboard
     </p>
 
-    <div v-if="isLogged" style="margin-top: 50px; margin-left: 150px;">
-      <table style="margin-left: auto; margin-right: auto">
-        <tr>
-          <th
-            v-bind:key="index"
-            v-for="(item, index) in reservationKeys"
-            style="
-              padding-right: 25px;
-              padding-left: 25px;
-              padding-bottom: 10px;
-              font-size: 18px;
-            "
-          >
-            <p>{{ item }}</p>
-          </th>
-        </tr>
-        <tr
+  <div v-if="isLogged" style="margin-top: 50px;">
+    <table style="margin-left: auto; margin-right: auto">
+      <tr>
+        <th
           v-bind:key="index"
-          v-for="(item, index) in activeReservations"
+          v-for="(item, index) in reservationKeys"
+          style="
+            padding-right: 20px;
+            padding-left: 20px;
+            padding-bottom: 10px;
+            font-size: 16px;
+          "
         >
-          <th
-            v-bind:key="idx"
-            v-for="(meal, idx) in item"
-            style="
-              padding-right: 25px;
-              padding-left: 25px;
-              padding-bottom: 20px;
-              font-size: 18px;
-            "
-          >
-            <p style="font-weight: 400">{{ meal }}</p>
-          </th>
+        <p>{{ item }}</p>
+        </th>
+      </tr>
+      <tr
+        v-bind:key="index"
+        v-for="(item, index) in activeReservations"
+      >
+        <th
+          v-bind:key="idx"
+          v-for="(meal, idx) in item"
+          style="
+            padding-right: 20px;
+            padding-left: 20px;
+            padding-bottom: 20px;
+            font-size: 16px;
+          "
+        >
+          <p style="font-weight: 400"  v-bind:style="{'color': meal==='pending' ? 'orange':'black'}"> {{ meal }}</p>
+        </th>
 
-          <th style='width: 140px;'>
-            <input
-              type="button"
-              style="margin-bottom: 20px; padding: 5px 8px 5px 8px; width: 150px; font-size: 15px;"
-              value="Cancel reservation"
-              v-if="isPending(index)"
-              v-on:click="cancelReservation(index)"
-            />
-          </th>
-        </tr>
-      </table>
+        <th style='width: 100px;'>
+          <input
+            type="button"
+            style="margin-bottom: 20px; padding: 5px 0px 5px 0px; width: 90px; font-size: 16px;color:red;"
+            value="Refuse"
+            v-if="isPending(index)"
+            v-on:click="cancelReservation(index)"
+          />
+          
+        </th>
+        <th style='width: 100px;'>
+          <input
+            type="button"
+            style="margin-bottom: 20px; padding: 5px 0px 5px 0px; width: 90px; font-size: 15px;color:green"
+            value="Accept"
+            v-if="isPending(index)"
+            v-on:click="acceptReservation(index)"
+          />
+          
+        </th>
+      </tr>
+    </table>
     </div>
   </div>
 </template>
@@ -57,9 +68,18 @@
 import { Options, Vue } from 'vue-class-component';
 import Utils from '../utils';
 
-@Options({
-  components: {},
-})
+interface ReservationObj {
+    id: string,
+    rest_email: string,
+    date: string,
+    service: string,
+    hour: string,
+    seats: string,
+    Notes: string,
+    cust_email:string,
+    status:string,
+}
+
 
 /* eslint import/no-cycle: [2, { maxDepth: 1 }] */
 /* eslint class-methods-use-this:
@@ -67,6 +87,8 @@ import Utils from '../utils';
 */
 export default class Home extends Vue {
   isLogged = Utils.isLogged;
+
+  activeReservations={}
 
   mounted() {
     console.log('mounted');
@@ -81,44 +103,45 @@ export default class Home extends Vue {
         console.log('Auth type ', localStorage.authType);
       },
     );
+
+    const xmlHttp = new XMLHttpRequest();
+    const url = 'http://localhost:12004/reserve?authToken=' + localStorage.authToken + '&email=' + localStorage.authEmail + '&user_type=' + localStorage.authType;
+    xmlHttp.open('GET', url, true);
+    const self = this;
+    xmlHttp.onreadystatechange = function () {
+      if (xmlHttp.readyState === 4) {
+        self.activeReservations = JSON.parse(xmlHttp.responseText);
+        console.log(self.activeReservations);
+      }
+    };
+    xmlHttp.send();
   }
 
   get reservationKeys() {
-    return ['Restaurant', 'Date', 'Person', 'Status'];
+    /*if (this.activeReservations === undefined) {
+      return [];
+    }
+    const object = Object.keys((this.activeReservations as Array<string>)[0]);
+    object[0] = 'Reservation Code';
+    return object;*/
+    return ['Reservation Code', 'Rest Mail', 'Date', 'Service', 'Hour', 'Seats', 'Notes', 'Cust Mail', 'Status'];
   }
 
   isPending(index: number) {
-    return this.activeReservations[index].status === 'Pending';
+    console.log((this.activeReservations as Array< ReservationObj>)[index].status);
+    console.log((this.activeReservations as Array< ReservationObj>)[index].status === 'pending');
+    return (this.activeReservations as Array< ReservationObj>)[index].status === 'pending';
   }
 
   cancelReservation(index: number) {
     // TODO: cancel the reservation in the db
-    this.activeReservations.splice(index, 1);
+    return this.activeReservations;
   }
 
-  // TODO: change this with real data
-  activeReservations = [
-    {
-      // TODO: we can add here a link to the actual restaurant
-      // it would be easier to do a query using the restaurant id
-      restaurant: 'Da igor',
-      date: new Date().toISOString().slice(0, 10),
-      person: 2,
-      status: 'Pending',
-    },
-    {
-      restaurant: 'Da toni',
-      date: new Date().toISOString().slice(0, 10),
-      person: 4,
-      status: 'Accepted',
-    },
-    {
-      restaurant: 'Da roberto',
-      date: new Date().toISOString().slice(0, 10),
-      person: 1,
-      status: 'Canceled',
-    },
-  ];
+  acceptReservation(index: number) {
+    // TODO: cancel the reservation in the db
+    return this.activeReservations;
+  }
 }
 </script>
 
