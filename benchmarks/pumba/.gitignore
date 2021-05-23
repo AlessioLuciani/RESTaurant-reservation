@@ -1,0 +1,15 @@
+.cover
+.git
+.gtm
+.idea
+.vscode
+.bin
+.env
+.in
+/.gtm/
+
+**/.DS_Store
+**/debug
+**/debug.test
+
+vendor

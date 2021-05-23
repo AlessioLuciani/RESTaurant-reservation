@@ -1,4 +1,4 @@
-.PHONY: all tsc
+.PHONY: all tsc clean
 
 all:
 		cd webapp && npm i && npm run build --fix
@@ -10,3 +10,6 @@ all:
 tsc:
 		tsc -b microservices/user_auth
 		tsc -b microservices/restaurant_auth
+
+clean:
+		find . -name 'node_modules' -type d -prune -print -exec rm -rf '{}' \;
