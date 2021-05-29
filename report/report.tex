@@ -4,6 +4,9 @@
 \usepackage[normalem]{ulem}
 \usepackage{graphicx}
 \useunder{\uline}{\ul}{}
+\usepackage[hidelinks]{hyperref}
+\let\oldhref\href
+\renewcommand{\href}[2]{\oldhref{#1}{\emph#2}}
 \usepackage{listings}
 \lstset{morekeywords={example,foo,bar,data}}
 
