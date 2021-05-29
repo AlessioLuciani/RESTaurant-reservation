@@ -19,9 +19,9 @@
       }}
     </h4>
 
-    <div style="margin-top: 50px; min-width: 1000px">
+    <div style="margin-top: 50px; min-width: 1000px; background-color: red;">
       <img
-        style="display: inline-block; width: 550px"
+        style="display: inline-block; width: 450px"
         src="../assets/557px-Barbieri_-_ViaSophia25668.jpg"
       />
       <div style="height: 50px; min-width: 400px; float: right">
@@ -235,7 +235,7 @@ export default class Restaurant extends Vue {
 <style>
 @import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css);
 .maina {
-  max-width: 1000px;
+  max-width: 1200px;
   margin: auto;
 }
 
