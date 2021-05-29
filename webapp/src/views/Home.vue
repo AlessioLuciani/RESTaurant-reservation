@@ -35,28 +35,29 @@
             font-size: 16px;
           "
         >
-          <p style="font-weight: 400"  v-bind:style="{'color': meal==='pending' ? 'orange':'black'}"> {{ meal }}</p>
+          <p style="font-weight: 400"
+          v-bind:style="{'color': meal==='pending' ? 'orange':'black'}"
+          > {{ meal }}
+          </p>
         </th>
 
         <th style='width: 100px;'>
           <input
             type="button"
-            style="margin-bottom: 20px; padding: 5px 0px 5px 0px; width: 90px; font-size: 16px;color:red;"
+            id="button-style-1"
             value="Refuse"
             v-if="isPending(index)"
             v-on:click="cancelReservation(index)"
           />
-          
         </th>
         <th style='width: 100px;'>
           <input
+            id="button-style-2"
             type="button"
-            style="margin-bottom: 20px; padding: 5px 0px 5px 0px; width: 90px; font-size: 15px;color:green"
             value="Accept"
             v-if="isPending(index)"
             v-on:click="acceptReservation(index)"
           />
-          
         </th>
       </tr>
     </table>
@@ -68,6 +69,7 @@
 import { Options, Vue } from 'vue-class-component';
 import Utils from '../utils';
 
+/* eslint-disable camelcase */
 interface ReservationObj {
     id: string,
     rest_email: string,
@@ -80,7 +82,6 @@ interface ReservationObj {
     status:string,
 }
 
-
 /* eslint import/no-cycle: [2, { maxDepth: 1 }] */
 /* eslint class-methods-use-this:
 ["error", { "exceptMethods": ["isLogged", "mounted", "reservationKeys"] }]
@@ -88,7 +89,7 @@ interface ReservationObj {
 export default class Home extends Vue {
   isLogged = Utils.isLogged;
 
-  activeReservations={}
+  activeReservations = {}
 
   mounted() {
     console.log('mounted');
@@ -105,25 +106,19 @@ export default class Home extends Vue {
     );
 
     const xmlHttp = new XMLHttpRequest();
-    const url = 'http://localhost:12004/reserve?authToken=' + localStorage.authToken + '&email=' + localStorage.authEmail + '&user_type=' + localStorage.authType;
+    const url = `http://localhost:12004/reserve?authToken=${localStorage.authToken}&email=${localStorage.authEmail}&user_type=${localStorage.authType}`;
     xmlHttp.open('GET', url, true);
-    const self = this;
-    xmlHttp.onreadystatechange = function () {
+    // const self = this;
+    xmlHttp.onreadystatechange = (function () {
       if (xmlHttp.readyState === 4) {
-        self.activeReservations = JSON.parse(xmlHttp.responseText);
-        console.log(self.activeReservations);
+        this.activeReservations = JSON.parse(xmlHttp.responseText);
+        console.log(this.activeReservations);
       }
-    };
+    }).bind(this);
     xmlHttp.send();
   }
 
   get reservationKeys() {
-    /*if (this.activeReservations === undefined) {
-      return [];
-    }
-    const object = Object.keys((this.activeReservations as Array<string>)[0]);
-    object[0] = 'Reservation Code';
-    return object;*/
     return ['Reservation Code', 'Rest Mail', 'Date', 'Service', 'Hour', 'Seats', 'Notes', 'Cust Mail', 'Status'];
   }
 
@@ -157,5 +152,21 @@ export default class Home extends Vue {
   bottom: 0;
   margin: auto;
   max-height: 100%;
+}
+
+#button-style-1 {
+  margin-bottom: 20px;
+  padding: 5px 0px 5px 0px;
+  width: 90px;
+  font-size: 16px;
+  color:red;
+}
+
+#button-style-2 {
+  margin-bottom: 20px;
+  padding: 5px 0px 5px 0px;
+  width: 90px;
+  font-size: 15px;
+  color:green;
 }
 </style>

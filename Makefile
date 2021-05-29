@@ -1,7 +1,7 @@
 .PHONY: all tsc clean
 
 all:
-		cd webapp && npm i && npm run build --fix
+		cd webapp && npm i && npm run build
 		cd microservices/restaurant_auth && npm i
 		cd microservices/user_auth && npm i
 		make tsc
