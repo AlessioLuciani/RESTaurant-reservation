@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.22.0 (HEAD)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: user-auth-mongo
+  name: user-auth-mongo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: user-auth-mongo
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.22.0 (HEAD)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: user-auth-mongo
+    spec:
+      containers:
+        - image: mongo
+          name: user-auth-mongo
+          resources: {}
+          volumeMounts:
+            - mountPath: /data/db
+              name: user-auth-mongodb
+      restartPolicy: Always
+      volumes:
+        - name: user-auth-mongodb
+          persistentVolumeClaim:
+            claimName: user-auth-mongodb
+status: {}

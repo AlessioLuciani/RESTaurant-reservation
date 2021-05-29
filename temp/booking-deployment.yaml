@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.22.0 (HEAD)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: booking
+  name: booking
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: booking
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.22.0 (HEAD)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: booking
+    spec:
+      containers:
+        - image: booking
+          name: booking
+          ports:
+            - containerPort: 3000
+          resources: {}
+          volumeMounts:
+            - mountPath: /code
+              name: booking-claim0
+      restartPolicy: Always
+      volumes:
+        - name: booking-claim0
+          persistentVolumeClaim:
+            claimName: booking-claim0
+status: {}

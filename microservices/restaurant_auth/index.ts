@@ -18,7 +18,10 @@ mongoose
     'mongodb://restaurant_auth_mongo:27017',
     { useNewUrlParser: true }
   )
-  .then(() => console.log('MongoDB Connected'))
+  .then(() => {
+    console.log('MongoDB Connected');
+    populateDbWithTestData();
+  })
   .catch((err: any) => console.log(err));
 
 
@@ -26,7 +29,6 @@ mongoose
 app.get('/', function (req: any, res: any) {
   res.send('Running!');
 });
-
 
 // Registration POST interface
 app.post('/register', async (req: express.Request, res: express.Response) => {
@@ -159,8 +161,6 @@ app.get('/validate', async (req: express.Request, res: express.Response) => {
 });
 
 
-
-
 // TODO: remove this (only for debug)
 app.get('/restaurants', (req, res) => {
   Restaurant.find().exec().then((restaurants: any) => { res.send(restaurants) });
@@ -168,3 +168,52 @@ app.get('/restaurants', (req, res) => {
 
 
 app.listen(3000, () => console.log('Server running...'));
+
+
+// Populating DB
+async function populateDbWithTestData() {
+  // Test data to populate the DB
+  let test_data = [
+    {
+      name: "ristorante buono",
+      email: "rbuono@mail.it",
+      password: "admin"
+    },
+    {
+      name: "pizzeria margherita",
+      email: "pizzeria@mail.it",
+      password: "admin"
+    },
+    {
+      name: "ristorante etnico",
+      email: "retnico@mail.it",
+      password: "admin"
+    },
+    {
+      name: "ristorante cattivo",
+      email: "rcattivo@mail.it",
+      password: "admin"
+    }
+  ];
+
+  for (let rest of test_data) {
+
+    // Checking if a restaurant with this email already exists
+    let query = await Restaurant.find({ "email": rest.email }).exec();
+
+    if (query.length > 0) {
+      continue;
+    }
+
+    // Creating new restaurant
+    const restaurant = new Restaurant({
+      name: rest.name,
+      email: rest.email,
+      password: rest.password,
+      tokens: []
+    });
+
+    // Saving restaurant data
+    await restaurant.save();
+  }
+}

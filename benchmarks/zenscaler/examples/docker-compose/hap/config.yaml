@@ -1,0 +1,18 @@
+orchestrator:
+    engine: "docker"
+    endpoint: "unix:///var/run/docker.sock"
+scalers:
+    dc-web:
+        type: "docker-compose-cmd"
+        project: "hap"
+        target: "web"
+        config: "docker-compose.yaml"
+rules:
+    web-hap:
+        target: "web"
+        probe: "hap.backend.rtime"
+        ha-socket: "haproxy.stats"
+        up: "> 2"
+        down: "< 1"
+        scaler: dc-web
+        refresh: 0.5s

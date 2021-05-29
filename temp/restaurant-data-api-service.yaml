@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.22.0 (HEAD)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: restaurant-data-api
+  name: restaurant-data-api
+spec:
+  ports:
+    - name: "12003"
+      port: 12003
+      targetPort: 3000
+  selector:
+    io.kompose.service: restaurant-data-api
+status:
+  loadBalancer: {}

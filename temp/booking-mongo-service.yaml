@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.22.0 (HEAD)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: booking-mongo
+  name: booking-mongo
+spec:
+  ports:
+    - name: "12104"
+      port: 12104
+      targetPort: 27017
+  selector:
+    io.kompose.service: booking-mongo
+status:
+  loadBalancer: {}

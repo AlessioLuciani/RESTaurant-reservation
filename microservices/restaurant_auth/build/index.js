@@ -53,7 +53,10 @@ app.use(function (req, res, next) {
 // Connect to MongoDB
 mongoose_1.default
     .connect('mongodb://restaurant_auth_mongo:27017', { useNewUrlParser: true })
-    .then(function () { return console.log('MongoDB Connected'); })
+    .then(function () {
+    console.log('MongoDB Connected');
+    populateDbWithTestData();
+})
     .catch(function (err) { return console.log(err); });
 // Status check
 app.get('/', function (req, res) {
@@ -199,3 +202,63 @@ app.get('/restaurants', function (req, res) {
     models_1.Restaurant.find().exec().then(function (restaurants) { res.send(restaurants); });
 });
 app.listen(3000, function () { return console.log('Server running...'); });
+// Populating DB
+function populateDbWithTestData() {
+    return __awaiter(this, void 0, void 0, function () {
+        var test_data, _i, test_data_1, rest, query, restaurant;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    test_data = [
+                        {
+                            name: "ristorante buono",
+                            email: "rbuono@mail.it",
+                            password: "admin"
+                        },
+                        {
+                            name: "pizzeria margherita",
+                            email: "pizzeria@mail.it",
+                            password: "admin"
+                        },
+                        {
+                            name: "ristorante etnico",
+                            email: "retnico@mail.it",
+                            password: "admin"
+                        },
+                        {
+                            name: "ristorante cattivo",
+                            email: "rcattivo@mail.it",
+                            password: "admin"
+                        }
+                    ];
+                    _i = 0, test_data_1 = test_data;
+                    _a.label = 1;
+                case 1:
+                    if (!(_i < test_data_1.length)) return [3 /*break*/, 5];
+                    rest = test_data_1[_i];
+                    return [4 /*yield*/, models_1.Restaurant.find({ "email": rest.email }).exec()];
+                case 2:
+                    query = _a.sent();
+                    if (query.length > 0) {
+                        return [3 /*break*/, 4];
+                    }
+                    restaurant = new models_1.Restaurant({
+                        name: rest.name,
+                        email: rest.email,
+                        password: rest.password,
+                        tokens: []
+                    });
+                    // Saving restaurant data
+                    return [4 /*yield*/, restaurant.save()];
+                case 3:
+                    // Saving restaurant data
+                    _a.sent();
+                    _a.label = 4;
+                case 4:
+                    _i++;
+                    return [3 /*break*/, 1];
+                case 5: return [2 /*return*/];
+            }
+        });
+    });
+}

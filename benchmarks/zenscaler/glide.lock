@@ -1,0 +1,138 @@
+hash: ca6e849094426afd1def3b2626603e213303285a1d92e1ae287843edd037d75e
+updated: 2016-08-25T15:31:01.744040996+02:00
+imports:
+- name: github.com/docker/distribution
+  version: dea554fc7cce2f2e7af5b1e1d38e28c5e96e1d9e
+  subpackages:
+  - digest
+  - reference
+- name: github.com/docker/engine-api
+  version: 2f8c367944a28130f3c2fb9f0aad7f1d5db952a9
+  subpackages:
+  - client
+  - client/transport
+  - client/transport/cancellable
+  - types
+  - types/blkiodev
+  - types/container
+  - types/filters
+  - types/mount
+  - types/network
+  - types/reference
+  - types/registry
+  - types/strslice
+  - types/swarm
+  - types/time
+  - types/versions
+- name: github.com/docker/go-connections
+  version: 0bad1a3951398f88ef4dd75fdb42af374430be89
+  subpackages:
+  - nat
+  - sockets
+  - tlsconfig
+- name: github.com/docker/go-units
+  version: eb879ae3e2b84e2a142af415b679ddeda47ec71c
+- name: github.com/docker/libcompose
+  version: 981fb65510b0a62e680368c7854f1e3358ca9ed5
+- name: github.com/fsnotify/fsnotify
+  version: f12c6236fe7b5cf6bcf30e5935d08cb079d78334
+- name: github.com/gin-gonic/gin
+  version: 5caaac4c5c712a9e7a7de29e6c24ef46c753017f
+  subpackages:
+  - binding
+  - render
+- name: github.com/golang/protobuf
+  version: 2402d76f3d41f928c7902a765dfc872356dd3aad
+  subpackages:
+  - proto
+- name: github.com/hashicorp/hcl
+  version: baeb59c710717b06aac1dbe2270e8192ec593244
+  subpackages:
+  - hcl/ast
+  - hcl/parser
+  - hcl/scanner
+  - hcl/strconv
+  - hcl/token
+  - json/parser
+  - json/scanner
+  - json/token
+- name: github.com/inconshreveable/mousetrap
+  version: 76626ae9c91c4f2a10f34cad8ce83ea42c93bb75
+- name: github.com/kr/fs
+  version: 2788f0dbd16903de03cb8186e5c7d97b69ad387b
+- name: github.com/magiconair/properties
+  version: 61b492c03cf472e0c6419be5899b8e0dc28b1b88
+- name: github.com/manucorporat/sse
+  version: ee05b128a739a0fb76c7ebd3ae4810c1de808d6d
+- name: github.com/Microsoft/go-winio
+  version: ce2922f643c8fd76b46cadc7f404a06282678b34
+- name: github.com/mitchellh/mapstructure
+  version: ca63d7c062ee3c9f34db231e352b60012b4fd0c1
+- name: github.com/opencontainers/runc
+  version: 46d9535096662d8d6a734e4fdfc1c27ab03bc328
+  subpackages:
+  - libcontainer/user
+- name: github.com/pelletier/go-buffruneio
+  version: df1e16fde7fc330a0ca68167c23bf7ed6ac31d6d
+- name: github.com/pelletier/go-toml
+  version: 5a62685873ef617233ab5f1b825a6e4a758e16cf
+- name: github.com/pkg/errors
+  version: 17b591df37844cde689f4d5813e5cea0927d8dd2
+- name: github.com/pkg/sftp
+  version: a71e8f580e3b622ebff585309160b1cc549ef4d2
+- name: github.com/Sirupsen/logrus
+  version: 4b6ea7319e214d98c938f12692336f7ca9348d6b
+- name: github.com/spf13/afero
+  version: 20500e2abd0d1f4564a499e83d11d6c73cd58c27
+  subpackages:
+  - mem
+  - sftp
+- name: github.com/spf13/cast
+  version: e31f36ffc91a2ba9ddb72a4b6a607ff9b3d3cb63
+- name: github.com/spf13/cobra
+  version: 37c3f8060359192150945916cbc2d72bce804b4d
+- name: github.com/spf13/jwalterweatherman
+  version: 33c24e77fb80341fe7130ee7c594256ff08ccc46
+- name: github.com/spf13/pflag
+  version: 103ce5cd2042f2fe629c1957abb64ab3e7f50235
+- name: github.com/spf13/viper
+  version: 7fb2782df3d83e0036cc89f461ed0422628776f4
+- name: golang.org/x/crypto
+  version: 351dc6a5bf92a5f2ae22fadeee08eb6a45aa2d93
+  subpackages:
+  - curve25519
+  - ed25519
+  - ed25519/internal/edwards25519
+  - ssh
+- name: golang.org/x/net
+  version: f315505cf3349909cdf013ea56690da34e96a451
+  subpackages:
+  - context
+  - proxy
+- name: golang.org/x/sys
+  version: a646d33e2ee3172a661fc09bca23bb4889a41bc8
+  subpackages:
+  - unix
+  - windows
+- name: golang.org/x/text
+  version: d69c40b4be55797923cec7457fac7a244d91a9b6
+  subpackages:
+  - transform
+  - unicode/norm
+- name: gopkg.in/go-playground/validator.v8
+  version: c193cecd124b5cc722d7ee5538e945bdb3348435
+- name: gopkg.in/yaml.v2
+  version: e4d366fc3c7938e2958e662b4258c7a89e1f0e3e
+testImports:
+- name: github.com/davecgh/go-spew
+  version: 5215b55f46b2b919f50a1df0eaa5886afe4e3b3d
+  subpackages:
+  - spew
+- name: github.com/pmezard/go-difflib
+  version: 792786c7400a136282c1664665ae0a8db921c6c2
+  subpackages:
+  - difflib
+- name: github.com/stretchr/testify
+  version: f390dcf405f7b83c997eac1b06768bb9f44dec18
+  subpackages:
+  - assert
