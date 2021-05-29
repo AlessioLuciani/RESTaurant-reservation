@@ -19,7 +19,7 @@
       }}
     </h4>
 
-    <div style="margin-top: 50px; min-width: 1000px; background-color: red;">
+    <div style="margin-top: 50px; min-width: 1000px;">
       <img
         style="display: inline-block; width: 450px"
         src="../assets/557px-Barbieri_-_ViaSophia25668.jpg"
@@ -50,9 +50,9 @@
           <br />
           <br />
           <input type="radio" id="lunch" value="lunch" v-model="bookingData.service">
-          <label>Lunch</label>&nbsp;&nbsp;
+          <label> Lunch</label><br>
           <input type="radio" id="dinner" value="dinner" v-model="bookingData.service">
-          <label>Dinner</label>
+          <label> Dinner</label>
           <br />
           <br />
           <label for="time">Time:</label> <br />
