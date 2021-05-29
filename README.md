@@ -1,12 +1,5 @@
-# you-rest
-Another restaurant booking system
+# RESTaurant-reservation
+A restaurant reservation system implementing the microservice architectural pattern leveraging Docker swarm orchestration.
 
-## Shared folder
+## Shared folder (remove when the repo will be public)
 https://drive.google.com/drive/folders/1ZcZuLC4pQyJVY_3o739JeKWlIBBQfBXg?usp=sharing
-
-## Post request example
-```
-curl -X POST -H "Content-Type: application/json" \
-    -d '{"name": "John", "surname": "Doe", "email": "a@b.c", "password": "asd"}' \
-    http://localhost:12001/register
-```
