@@ -10,23 +10,21 @@ services:
   user_auth_api:
     restart: always
     build: ./microservices/user_auth
-    ports:
-      - 12001:3000
+    #ports:
+     # - 12001:3000
     volumes:
       - ./microservices/user_auth:/code
     depends_on:
       - user_auth_mongo
   user_auth_mongo:
     image: mongo
-    #ports:
-     # - 12102:27017
     volumes:
       - user_auth_mongodb:/data/db
   restaurant_auth_api:
     restart: always
     build: ./microservices/restaurant_auth
-    ports:
-      - 12002:3000
+    #ports:
+     # - 12002:3000
     volumes:
       - ./microservices/user_auth:/code
     depends_on:
@@ -38,8 +36,8 @@ services:
   restaurant_data_api:
     restart: always
     build: ./microservices/restaurant_data
-    ports:
-      - 12003:3000
+    #ports:
+     # - 12003:3000
     volumes:
       - ./microservices/restaurant_data:/code
     depends_on:
@@ -47,15 +45,15 @@ services:
   restaurant_data_mongo:
     image: mongo
     hostname: restaurant_data_db
-    ports:
-      - 12103:27017
+    #ports:
+     # - 12103:27017
     volumes:
       - restaurant_data_mongodb:/data/db
   booking:
     restart: always
     build: ./microservices/booking
-    ports:
-      - 12004:3000
+    #ports:
+      #- 12004:3000
     volumes:
       - ./microservices/booking:/code
     depends_on:
@@ -63,12 +61,13 @@ services:
   booking_mongo:
     image: mongo
     hostname: booking_db
-    ports:
-      - 12104:27017
+    #ports:
+      #- 12104:27017
     volumes:
       - booking_mongodb:/data/db
   grafana:
     image: grafana/grafana:7.3.0
+    container_name: grafana
     ports:
       - 9092:3000
     depends_on:
