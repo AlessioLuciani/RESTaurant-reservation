@@ -82,6 +82,15 @@ The available operations are:
 
 \subsubsection{Restaurant data}
 
+The Restaurant data microservice exposes an interface to search among different restaurants. After the log-in step, it is possible to search and select a restaurant in order to book it. \\
+The search service operates on a NoSQL database containing data about the restaurant (name, address, email, rating, menu). Each restaurant is stored as a JSON object. The user can query the database through the service RESTful API. The sequence diagram is shown in Figure \ref{fig:restaurant_search}. \\
+After the user has selected a restaurant, its unique ID is passed to the booking microservice. Disentangling the search service form the booking service allow us to have separated databases and thus to distribute the workload better. Indeed, this way individual scalability is assured: a user can search among all restaurants, but can book only one at a time. This consideration leads to the necessity to have decoupled services. \\
+There is on possible operation to perform:
+
+\begin{itemize}
+    \item Search: the client provides a search string and receives a list of restaurants satisfying the search criteria;
+\end{itemize}
+
 \begin{figure}
     \includegraphics[width=\linewidth]{../docs/sequence/search/search.png}
     \caption{Restaurant search sequence diagram.}
