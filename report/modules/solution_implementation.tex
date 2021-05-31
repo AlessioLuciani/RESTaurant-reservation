@@ -99,7 +99,25 @@ This module was implemented very similarly to the user auth one.
 \end{lstlisting}
 
 \subsection{Restaurant data}
-% Restaurant data description here
+This module was build in python. Its corresponding database is build using MongoDB, which provides a NoSQL structure. Each restaurant is stored as a JSON object. The service uses the Flask library to expose the REST API and the pymongo library to communicate with the database. \\
+The POST search method is used to search for a keyword among different restaurants. To overcome the MongoDB limitation of performing pattern matching for a nested object (the menu), each restaurant has a search\_string attribute which is a string containing all the items in the menu. \\
+The GET search method is used to get a restaurant from its unique id. \\
+Additionally there are two GET methods, namely pin and pingdb, which are used to ping the server and the database to perform a health check. These methods are not exposed. 
+
+
+\begin{lstlisting}[language=bash,caption={Restaurant data exposed API}]
+    POST search
+    JSON body data
+        query: string
+    JSON response
+        restaurants: list of json OR error: string
+        
+    GET search
+    JSON body data
+        id: string
+    JSON response
+        restaurant: json OR error: string
+\end{lstlisting}
 
 
 \subsection{Booking}
