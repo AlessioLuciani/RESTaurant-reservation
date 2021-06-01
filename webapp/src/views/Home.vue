@@ -6,6 +6,23 @@
     </p>
 
   <div v-if="isLogged" style="margin-top: 50px;">
+
+    <div style="border-bottom:2px solid black;">
+      <center><img src="../assets/user.png" style="width:80px;height:50px;"></center>
+      <br>
+      <center><p>{{ getMail() }}</p></center>
+      <br>
+      <center v-if="isRestaurant()"><p>Restaurant Account</p></center>
+      <center v-if="!isRestaurant()"><p>User Account</p></center>
+      <br>
+      <center v-if="!isRestaurant()"><p>You have done <b>{{ getNRes() }}</b>
+      Reservation</p></center>
+      <center v-if="isRestaurant()"><p>You have received <b>{{ getNRes() }}</b>
+      Reservation</p></center>
+      <br><br>
+    </div>
+
+    <br>
     <table style="margin-left: auto; margin-right: auto">
       <tr>
         <th
@@ -36,7 +53,8 @@
           "
         >
           <p style="font-weight: 400"
-          v-bind:style="{'color': meal==='pending' ? 'orange':'black'}"
+          v-bind:style="{'color': meal==='pending' ? 'orange':
+          meal==='accepted' ? 'green' : meal==='refused' ? 'red' : 'black'}"
           > {{ meal }}
           </p>
         </th>
@@ -46,7 +64,7 @@
             type="button"
             id="button-style-1"
             value="Refuse"
-            v-if="isPending(index)"
+            v-if="isPending(index) && isRestaurant()"
             v-on:click="cancelReservation(index)"
           />
         </th>
@@ -55,7 +73,7 @@
             id="button-style-2"
             type="button"
             value="Accept"
-            v-if="isPending(index)"
+            v-if="isPending(index) && isRestaurant()"
             v-on:click="acceptReservation(index)"
           />
         </th>
@@ -89,37 +107,67 @@ interface ReservationObj {
 export default class Home extends Vue {
   isLogged = Utils.isLogged;
 
+  mail='';
+
+  isRest = false;
+
   activeReservations = {}
 
   mounted() {
     console.log('mounted');
     Utils.isLogged = false;
     this.isLogged = false;
-    Utils.loginUser(
-      localStorage.authEmail,
-      localStorage.authToken,
-      (response) => {
-        Utils.isLogged = response.error === undefined;
-        this.isLogged = Utils.isLogged;
-        console.log('Auth type ', localStorage.authType);
-      },
-    );
+    this.mail = localStorage.authEmail;
 
-    const xmlHttp = new XMLHttpRequest();
-    const url = `http://localhost:12004/reserve?authToken=${localStorage.authToken}&email=${localStorage.authEmail}&user_type=${localStorage.authType}`;
-    xmlHttp.open('GET', url, true);
-    // const self = this;
-    xmlHttp.onreadystatechange = (function () {
-      if (xmlHttp.readyState === 4) {
-        this.activeReservations = JSON.parse(xmlHttp.responseText);
-        console.log(this.activeReservations);
-      }
-    }).bind(this);
-    xmlHttp.send();
+    if (localStorage.authType === '0') {
+      Utils.loginUser(
+        localStorage.authEmail,
+        localStorage.authToken,
+        (response) => {
+          Utils.isLogged = response.error === undefined;
+          this.isLogged = Utils.isLogged;
+          console.log('Auth type ', localStorage.authType);
+        },
+      );
+    }
+    if (localStorage.authType === '1') {
+      console.log('dentro2');
+      this.isRest = true;
+      Utils.loginRestaurant(
+        localStorage.authEmail,
+        localStorage.authToken,
+        (response) => {
+          Utils.isLogged = response.error === undefined;
+          this.isLogged = Utils.isLogged;
+          console.log('Auth type ', localStorage.authType);
+        },
+      );
+    }
+    if (localStorage.authEmail !== undefined) {
+      const xmlHttp = new XMLHttpRequest();
+      const url = `http://localhost:12004/reserve?authToken=${localStorage.authToken}&email=${localStorage.authEmail}&user_type=${localStorage.authType}`;
+      xmlHttp.open('GET', url, true);
+      // const self = this;
+      xmlHttp.onreadystatechange = (function () {
+        if (xmlHttp.readyState === 4) {
+          this.activeReservations = JSON.parse(xmlHttp.responseText);
+          console.log(this.activeReservations);
+        }
+      }).bind(this);
+      xmlHttp.send();
+    }
   }
 
   get reservationKeys() {
-    return ['Reservation Code', 'Rest Mail', 'Date', 'Service', 'Hour', 'Seats', 'Notes', 'Cust Mail', 'Status'];
+    return ['Rest Mail', 'Date', 'Service', 'Hour', 'Seats', 'Notes', 'Cust Mail', 'Status', 'Reservation Code'];
+  }
+
+  isToDisplay(meal: string, item:string) {
+    console.log(item);
+    if (item in this.reservationKeys) {
+      return true;
+    }
+    return false;
   }
 
   isPending(index: number) {
@@ -128,14 +176,54 @@ export default class Home extends Vue {
     return (this.activeReservations as Array< ReservationObj>)[index].status === 'pending';
   }
 
+  getNRes() {
+    return (this.activeReservations as Array< ReservationObj>).length;
+  }
+
+  isRestaurant() {
+    return this.isRest === true;
+  }
+
+  getMail() {
+    return this.mail;
+  }
+
   cancelReservation(index: number) {
-    // TODO: cancel the reservation in the db
-    return this.activeReservations;
+    const code = (this.activeReservations as Array< ReservationObj>)[index].id;
+    console.log((this.activeReservations as Array< ReservationObj>)[index]);
+    console.log(code);
+    const reservation = {
+      res_id: code, status: 'refused', authToken: localStorage.authToken, email: localStorage.authEmail,
+    };
+    const xmlHttp = new XMLHttpRequest();
+    xmlHttp.open('PATCH', 'http://localhost:12004/reserve', true);
+    xmlHttp.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+    xmlHttp.onreadystatechange = () => {
+      if (xmlHttp.readyState === 4) {
+        console.log(JSON.parse(xmlHttp.responseText));
+        window.location.reload();
+      }
+    };
+    xmlHttp.send(JSON.stringify(reservation));
   }
 
   acceptReservation(index: number) {
-    // TODO: cancel the reservation in the db
-    return this.activeReservations;
+    const code = (this.activeReservations as Array< ReservationObj>)[index].id;
+    console.log((this.activeReservations as Array< ReservationObj>)[index]);
+    console.log(code);
+    const reservation = {
+      res_id: code, status: 'accepted', authToken: localStorage.authToken, email: localStorage.authEmail,
+    };
+    const xmlHttp = new XMLHttpRequest();
+    xmlHttp.open('PATCH', 'http://localhost:12004/reserve', true);
+    xmlHttp.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+    xmlHttp.onreadystatechange = () => {
+      if (xmlHttp.readyState === 4) {
+        console.log(JSON.parse(xmlHttp.responseText));
+        window.location.reload();
+      }
+    };
+    xmlHttp.send(JSON.stringify(reservation));
   }
 }
 </script>

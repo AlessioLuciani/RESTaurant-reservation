@@ -3,7 +3,8 @@ from flask_restful import Resource, Api, reqparse, abort
 import json
 import pymongo
 import requests
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
+from bson.objectid import ObjectId
 
 client = pymongo.MongoClient("mongodb://booking_db", 27017)
 #client.drop_database('restaurants') 
@@ -11,6 +12,7 @@ db = client.restaurants
 
 app = Flask(__name__)
 cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 api = Api(app)
 
 
@@ -61,9 +63,10 @@ class reservation(Resource):
 
         return result 
 
-
+    @cross_origin(origin='*')
+    @cross_origin(allow_headers=['Content-Type'])
     #change status of reservation
-    def update(self):
+    def patch(self):
         args = task_update_args.parse_args()
         restaurant_session = {"token": args["authToken"], "email": args["email"]}
         
@@ -71,9 +74,10 @@ class reservation(Resource):
         if "error" in is_valid.keys():
             return "Restaurant not authorized"
 
-        filter = { '_id': args["res_id"] }
+        filter = { '_id': ObjectId(args["res_id"]) }
         newvalues = { "$set": { 'status': args["status"] } }
         db.data.update_one(filter, newvalues)
+        print(args["status"]+args["res_id"], flush=True)
 
         result = {"res":"Status updated"}
         return result 
@@ -99,7 +103,9 @@ class reservation(Resource):
 
         res = list(db.data.find(myquery))
         for row in res:
-            row["_id"]=str(row["_id"])
+            row["id"] = row["_id"]
+            del row["_id"]
+            row["id"]=str(row["id"])
 
         return res
 

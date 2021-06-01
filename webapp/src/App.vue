@@ -5,7 +5,7 @@
     <router-link to="/signup">Signup</router-link> |
     <router-link to="/explore" v-show="true">Explore</router-link>
     |
-    <a href="#" v-on:click="logout">Logout</a>
+    <a  href="#" v-on:click="logout">Logout</a>
   </div>
   <router-view />
 
@@ -34,13 +34,23 @@ import Utils from './utils';
 export default class App extends Vue {
   mounted() {
     if (!Utils.isLogged) {
-      Utils.loginUser(
-        localStorage.authEmail,
-        localStorage.authToken,
-        (response) => {
-          Utils.isLogged = response.error === undefined;
-        },
-      );
+      if (localStorage.authType === '0') {
+        Utils.loginUser(
+          localStorage.authEmail,
+          localStorage.authToken,
+          (response) => {
+            Utils.isLogged = response.error === undefined;
+          },
+        );
+      } else {
+        Utils.loginRestaurant(
+          localStorage.authEmail,
+          localStorage.authToken,
+          (response) => {
+            Utils.isLogged = response.error === undefined;
+          },
+        );
+      }
     } else {
       console.log('[Cached] user is currently logged');
     }

@@ -49,9 +49,9 @@
           />
           <br />
           <br />
-          <input type="radio" id="lunch" value="lunch" v-model="bookingData.service">
-          <label> Lunch</label><br>
-          <input type="radio" id="dinner" value="dinner" v-model="bookingData.service">
+          <input type="radio" id="lunch" value="lunch" v-model="bookingData.service">&nbsp;&nbsp;
+          <label> Lunch</label> <br>
+          <input type="radio" id="dinner" value="dinner" v-model="bookingData.service">&nbsp;&nbsp;
           <label> Dinner</label>
           <br />
           <br />
@@ -81,8 +81,8 @@
       </div>
     </div>
     <br />
-    <br />
-    <div>
+    <br /><br /><br />
+    <div style="margin-top:50px;border-top:2px solid black;padding-top:30px;">
       <h1>Menu</h1>
       <br />
       <div v-bind:key="index" v-for="(item, index) in currentMenu">
@@ -181,6 +181,12 @@ export default class Restaurant extends Vue {
       localStorage.authToken === undefined
     ) {
       console.log('You are not authenticated!');
+      alert('You are not authenticated!');
+      return;
+    }
+    if (localStorage.authType === '1') {
+      alert('A restaurant can not reserve a table!');
+      return;
     }
     const reservation = {
       rest_email: (this.currentRestaurant as RestaurantObj).email,
