@@ -144,17 +144,22 @@ export default class Home extends Vue {
       );
     }
     if (localStorage.authEmail !== undefined) {
+      // const url = `http://localhost:12004/myReservations?authToken=${localStorage.authToken}&email=${localStorage.authEmail}&user_type=${localStorage.authType}`;
+      const reservation = {
+        authToken: localStorage.authToken,
+        email: localStorage.authEmail,
+        user_type: localStorage.authType,
+      };
       const xmlHttp = new XMLHttpRequest();
-      const url = `http://localhost:12004/reserve?authToken=${localStorage.authToken}&email=${localStorage.authEmail}&user_type=${localStorage.authType}`;
-      xmlHttp.open('GET', url, true);
-      // const self = this;
+      xmlHttp.open('POST', 'http://localhost:12004/my_reservations', true);
+      xmlHttp.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
       xmlHttp.onreadystatechange = (function () {
         if (xmlHttp.readyState === 4) {
           this.activeReservations = JSON.parse(xmlHttp.responseText);
           console.log(this.activeReservations);
         }
       }).bind(this);
-      xmlHttp.send();
+      xmlHttp.send(JSON.stringify(reservation));
     }
   }
 
@@ -196,7 +201,7 @@ export default class Home extends Vue {
       res_id: code, status: 'refused', authToken: localStorage.authToken, email: localStorage.authEmail,
     };
     const xmlHttp = new XMLHttpRequest();
-    xmlHttp.open('PATCH', 'http://localhost:12004/reserve', true);
+    xmlHttp.open('PATCH', 'http://localhost:12004/change_status', true);
     xmlHttp.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
     xmlHttp.onreadystatechange = () => {
       if (xmlHttp.readyState === 4) {
@@ -215,7 +220,7 @@ export default class Home extends Vue {
       res_id: code, status: 'accepted', authToken: localStorage.authToken, email: localStorage.authEmail,
     };
     const xmlHttp = new XMLHttpRequest();
-    xmlHttp.open('PATCH', 'http://localhost:12004/reserve', true);
+    xmlHttp.open('PATCH', 'http://localhost:12004/change_status', true);
     xmlHttp.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
     xmlHttp.onreadystatechange = () => {
       if (xmlHttp.readyState === 4) {

@@ -135,10 +135,10 @@ app.post('/logout', async (req: express.Request, res: express.Response) => {
 
 
 // Validation GET interface
-app.get('/validate', async (req: express.Request, res: express.Response) => {
+app.post('/validate', async (req: express.Request, res: express.Response) => {
 
-  let email = req.query.email;
-  let token = req.query.token;
+  let email = req.body.email;
+  let token = req.body.token;
 
   // Querying restaurant information
   let query = await Restaurant.find({ "email": email }).exec();

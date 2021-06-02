@@ -170,13 +170,13 @@ app.post('/logout', function (req, res) { return __awaiter(void 0, void 0, void 
     });
 }); });
 // Validation GET interface
-app.get('/validate', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+app.post('/validate', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var email, token, query, restaurant;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                email = req.query.email;
-                token = req.query.token;
+                email = req.body.email;
+                token = req.body.token;
                 return [4 /*yield*/, models_1.Restaurant.find({ "email": email }).exec()];
             case 1:
                 query = _a.sent();
