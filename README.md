@@ -15,6 +15,8 @@ Or compile the project (make sure you have Node.js and Typescript installed on y
 make
 ```
 
+## Demo video
+https://youtu.be/2iVW3yifJOw
 
 ## Shared folder (remove when the repo will be public)
 https://drive.google.com/drive/folders/1ZcZuLC4pQyJVY_3o739JeKWlIBBQfBXg?usp=sharing
