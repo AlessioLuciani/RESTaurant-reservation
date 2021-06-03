@@ -33,7 +33,6 @@ validation.\\
         password: string
     JSON response
         token: string OR error: string
-
         
     POST login
     JSON body data
@@ -48,7 +47,6 @@ validation.\\
         token: nullable string
     JSON response
         token: string OR error: string
-
         
     GET validate
     JSON body data
@@ -81,14 +79,12 @@ This module was implemented very similarly to the user auth one.
     JSON response
         token: string OR error: string
 
-
     POST logout
     JSON body data
         email: string
         token: nullable string
     JSON response
         token: string OR error: string
-
 
     GET validate
     JSON body data
@@ -122,6 +118,42 @@ Additionally there are two GET methods, namely pin and pingdb, which are used to
 
 \subsection{Booking}
 % Booking description here
+This microservice module was completely written in python leveraging mainly the flask library to implement a REST API interface. Another technology that we used is MongoDB NoSQL database to store reservation records. As for the other services, database and applications logic are deployed in 2 different container. Apart from utilities methods such as ping the database or the microservices itself, the method that the service offers, following the design choices, are:
+
+\begin{lstlisting}[language=bash,caption={Booking exposed API}]
+    POST reserve
+    JSON body data
+        email: string
+        authToken: string
+        rest_email: string
+        date: string
+        service: string in {'lunch' or 'dinner'}
+        time: string
+        seats: int
+        notes: string
+        status: string in {'pending'[DEFAULT],'accepted','refused'}
+    JSON response
+    	body : "reservation pending"
+        reservation_id: string
+        OR error: string
+        
+    PATCH change_status
+    JSON body data
+        res_id: string
+        status: string in {'pending','accepted','refused'}
+        authToken: string
+        email: string        
+    JSON response
+        res: "Status Updated" OR error: string
+        
+   POST my_reservations
+   JSON body data
+        email: string
+        authToken: string
+        user_type: int [0 -> user, 1 -> restaurant]
+    JSON response
+        list of reservation records OR error: string
+\end{lstlisting}
 
 
 \subsection{Web application}
@@ -133,7 +165,9 @@ in strict mode instead of the plain Javascript. We decided to use
 \href{https://en.wikipedia.org/wiki/Ajax_(programming)}{AJAX} to send requests from the client to the servers. The interface is quite simple and implements the most important use cases that may be useful in the context of restaurant reservations, namely, we implemented the following use cases: user authentication, restaurant owner authentication, restaurant search using keywords, reserve a table, and handle an incoming user booking for a table. For a full description of how these functionalities are implemented please refer to their documentation in the microservices section. In particular, all requests that need to be authenticated are provided with an authentication token relative to the user session. Once the user is authenticated by our system, we store the authentication token that is provided by the user auth API in the local storage object. In this way, we are able to maintain the user session open even if the browser was closed. In such cases, we perform a technique known as silent sign-in using the above-cited token-based technique, enabling the user to proceed with their reservation transparently. For security reasons, we do not store user passwords on the client-side, neither encrypted ones, and the random generation of authentication tokens is performed on the server-side. Moreover, the website allows the non-authenticated user to view all available restaurants and see the details of a particular one, exception made for the booking request that can only be performed by a user that is currently logged into the system. A logged user can also see the list of their reservations, that have to be accepted by a registered restaurant owner. On the other side, we allow restaurateurs to see the collection of pending reservations that need to be accepted. Once the status of the reservation is changed on the restaurant side, the change is reflected in the user dashboard as well. It's worth noting that even though in this context the web application is only used to test the real system functionalities (implemented in the back-end), future work could be in the direction of improving the user experience on the website.
 Two example pages are shown in Figure \ref{fig:explore_page} and Figure \ref{fig:booking_page}.
 
-\begin{figure}
+\vspace{0.5in}
+
+\begin{figure}[H]
     \begin{center}
         \includegraphics[width=8cm]{./images/explore_page.png}
     \end{center}
@@ -141,10 +175,21 @@ Two example pages are shown in Figure \ref{fig:explore_page} and Figure \ref{fig
     \label{fig:explore_page}
 \end{figure}
 
-\begin{figure}
-    \begin{center}
-        \includegraphics[width=8cm]{./images/booking_page.png}
-    \end{center}
-    \caption{Web app booking page.}
-    \label{fig:booking_page}
-\end{figure}
+%\begin{figure}[H]
+%    \begin{center}
+%        \includegraphics[width=8cm]{./images/reserve.png}
+%    \end{center}
+%    \caption{Web app booking page.}
+%    \label{fig:booking_page}
+%\end{figure}
+%
+%\begin{figure}[H]
+%    \begin{center}
+%        \includegraphics[width=8cm]{./images/dash.png}
+%    \end{center}
+%    \caption{Web app booking page.}
+%    \label{fig:booking_page}
+%\end{figure}
+
+\textbf{Note: }\textit{ To try our webapp and see all the microservices at work, please clone our git repository, compile with make, and run docker-compose up --build. WebServer is running locally on port 8081. A demo video sample is available \href{https://www.youtube.com/watch?v=2iVW3yifJOw}{here}.} \clearpage
+

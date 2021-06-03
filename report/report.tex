@@ -1,24 +1,46 @@
 \documentclass{article}
 
 \usepackage{}
+\usepackage{float}
 \usepackage[normalem]{ulem}
 \usepackage{graphicx}
 \useunder{\uline}{\ul}{}
-\usepackage[hidelinks]{hyperref}
+\usepackage[]{hyperref}
 \let\oldhref\href
 \renewcommand{\href}[2]{\oldhref{#1}{\emph#2}}
 \usepackage{listings}
 \lstset{morekeywords={example,foo,bar,data}}
+\usepackage[margin=1.2in]{geometry}
 
-
-\title{RESTaurant Reservation}
+\title{\textbf{RESTaurant Reservation}}
 \author{Leonardo Emili, Alessio Luciani, Emanuele Mercanti, Andrea Trianni}
 
 \begin{document}
-    \maketitle
+    %\maketitle
+    
+	\begin{titlepage}
+	
+	\centering
+	\textbf{{\Large RESTaurant Reservation} }
+	\vspace{0.2in}
+	 
+	 Leonardo Emili, Alessio Luciani, Emanuele Mercanti, Andrea Trianni\\
 
-    \tableofcontents
-    %\clearpage
+
+	 \vspace{0.1cm}\today
+	\vspace{0.5in}
+\textit{	\\	 \textbf{Project report} for Cloud Computing course \\
+Department of Computer Science, Sapienza \\
+	Prof. Emiliano Casalicchio} \\
+	
+	
+	\vspace{1in}
+	\tableofcontents
+	\end{titlepage}
+
+	\vspace{1in}
+    %\tableofcontents
+    \clearpage
 
     \input{modules/problem_introduction}
     \input{modules/solution_design}
