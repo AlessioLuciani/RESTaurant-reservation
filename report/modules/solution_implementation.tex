@@ -133,7 +133,7 @@ This microservice module was completely written in python leveraging mainly the 
         notes: string
         status: string in {'pending'[DEFAULT],'accepted','refused'}
     JSON response
-    	body : "reservation pending"
+    	body : "reservation_pending"
         reservation_id: string
         OR error: string
         
@@ -144,7 +144,7 @@ This microservice module was completely written in python leveraging mainly the 
         authToken: string
         email: string        
     JSON response
-        res: "Status Updated" OR error: string
+        res: "Status_Updated" OR error: string
         
    POST my_reservations
    JSON body data
@@ -163,13 +163,13 @@ is composed of elements of HTML and CSS, tied up using \href{https://vuejs.org/}
 to add the responsive component. To enforce types, we opted to use TypeScript
 in strict mode instead of the plain Javascript. We decided to use
 \href{https://en.wikipedia.org/wiki/Ajax_(programming)}{AJAX} to send requests from the client to the servers. The interface is quite simple and implements the most important use cases that may be useful in the context of restaurant reservations, namely, we implemented the following use cases: user authentication, restaurant owner authentication, restaurant search using keywords, reserve a table, and handle an incoming user booking for a table. For a full description of how these functionalities are implemented please refer to their documentation in the microservices section. In particular, all requests that need to be authenticated are provided with an authentication token relative to the user session. Once the user is authenticated by our system, we store the authentication token that is provided by the user auth API in the local storage object. In this way, we are able to maintain the user session open even if the browser was closed. In such cases, we perform a technique known as silent sign-in using the above-cited token-based technique, enabling the user to proceed with their reservation transparently. For security reasons, we do not store user passwords on the client-side, neither encrypted ones, and the random generation of authentication tokens is performed on the server-side. Moreover, the website allows the non-authenticated user to view all available restaurants and see the details of a particular one, exception made for the booking request that can only be performed by a user that is currently logged into the system. A logged user can also see the list of their reservations, that have to be accepted by a registered restaurant owner. On the other side, we allow restaurateurs to see the collection of pending reservations that need to be accepted. Once the status of the reservation is changed on the restaurant side, the change is reflected in the user dashboard as well. It's worth noting that even though in this context the web application is only used to test the real system functionalities (implemented in the back-end), future work could be in the direction of improving the user experience on the website.
-Two example pages are shown in Figure \ref{fig:explore_page} and Figure \ref{fig:booking_page}.
+An example page is shown in Figure \ref{fig:explore_page}.
 
 \vspace{0.5in}
 
 \begin{figure}[H]
     \begin{center}
-        \includegraphics[width=8cm]{./images/explore_page.png}
+        \includegraphics[width=15cm]{./images/explore_page.png}
     \end{center}
     \caption{Web app explore page.}
     \label{fig:explore_page}
@@ -191,5 +191,4 @@ Two example pages are shown in Figure \ref{fig:explore_page} and Figure \ref{fig
 %    \label{fig:booking_page}
 %\end{figure}
 
-\textbf{Note: }\textit{ To try our webapp and see all the microservices at work, please clone our git repository, compile with make, and run docker-compose up --build. WebServer is running locally on port 8081. A demo video sample is available \href{https://www.youtube.com/watch?v=2iVW3yifJOw}{here}.} \clearpage
-
+\textbf{Note: }\textit{ To test the project, clone the project from the GitHub \underline{\href{https://github.com/AlessioLuciani/RESTaurant-reservation}{repository}.} Run it with the make command. The web app is running locally on port 8081. A demo video is available \underline{\href{https://www.youtube.com/watch?v=2iVW3yifJOw}{here}.}} \clearpage

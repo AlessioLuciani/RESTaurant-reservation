@@ -40,7 +40,7 @@ The available operations are:
 \end{itemize}
 
 \begin{figure}
-    \includegraphics[width=\linewidth]{../docs/sequence/userAuth/auth.png}
+    \includegraphics[width=17cm]{../docs/sequence/userAuth/auth.png}
     \caption{User login sequence diagram.}
     \label{fig:user_login}
 \end{figure}
@@ -100,8 +100,8 @@ There is on possible operation to perform:
 \subsubsection{Booking}
 
 This microservice offers all the functionalities that are needed to deal with the reservation of the tables in the restaurants. These functionalities can be used both from standard users and restaurant accounts, depending on the specific needs trough a REST API. More in detail users can send a request of table reservation to a specific restaurant, and this last can accept or deny this request. The service also have to offers other methods to retrieve the list of the reservations of a given user/restaurant. \\
-This is one of the most important part of our whole application and also one of the most complex. To successfully complete all the task, this service has to communicate with \textit{ restaurant and user auth microservices } to validate the session tokens before commit all the operations. \\
-As like the others, this service relies on a NoSQL database to store reservations records. For each reservation a unique code identifier is generated and also the email of both restaurant and user are saved as contact info and also to link the requests with the accounts. The reservation also require these other fields: \textit{"date", "service", "time", "seats", "notes", "status"}. When a request is sent, its first status is set to \textit{"pending}". The tree possible status that a request can assume and that the microservice allow are: \textit{"pending","accepted","refused}".\\
+This is one of the most important part of our whole application and also one of the most complex. To successfully complete all the task, this service has to communicate with \textit{ restaurant and user auth microservices } to validate the session tokens before commit all the operations.
+As the others, this service relies on a NoSQL database to store reservations records. For each reservation a unique code identifier is generated and also the email of both restaurant and user are saved as contact info and also to link the requests with the accounts. The reservation also require these other fields: \textit{"date", "service", "time", "seats", "notes", "status"}. When a request is sent, its first status is set to \textit{"pending}". The tree possible status that a request can assume and that the microservice allow are: \textit{"pending","accepted","refused}".
 So, in detail, the available operations are:
 
 \begin{itemize}
@@ -129,6 +129,6 @@ So, in detail, the available operations are:
 By structuring the system into many microservices, there is the possibility
 to scale the single microservices indipendently. This is useful since the
 microservices may receive different loads of incoming traffic and this
-way there is more control over which component should be scaled. In a real world scenario, of course, standard users are expected to be much more respect restaurant account and we want to have an high level degree of elasticity. \\
-Another important features is availability and fault isolation. If a part of the system goes down (e.g. restaurant data service), the rest of the application can still live and allow other operations (e.g. the reservation service).\\
+way there is more control over which component should be scaled. In a real world scenario, of course, standard users are expected to be much more respect restaurant account and we want to have an high level degree of elasticity.
+Another important features is availability and fault isolation. If a part of the system goes down (e.g. restaurant data service), the rest of the application can still live and allow other operations (e.g. the reservation service).
 The last important quality of this system is the simplicity, it is composed by small microservices that can be developed quickly, and that can also be upgraded in a fast way. We can explore the benefits of continuous development, in fact we can also decide to add other microservices in the future, as one for the reviews management, one for the mail notifications, and so on.
