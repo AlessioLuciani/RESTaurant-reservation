@@ -95,14 +95,6 @@ services:
     - /var/lib/docker/:/var/lib/docker:ro
     depends_on:
     - redis
-    #- webapp
-    #- user_auth_api
-    #- user_auth_mongo
-    #- restaurant_auth_api
-    #- restaurant_auth_mongo
-    #- restaurant_data_api
-    #- restaurant_data_mongo
-    #- booking_mongodb:
   redis:
     image: redis:latest
     container_name: redis
